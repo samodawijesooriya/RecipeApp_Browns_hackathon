@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KitchenBoard - Add Recipe</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1d1b1c",
+                        "surface-container-high": "#ebe7e6",
+                        "surface-container": "#f1edec",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "tertiary-fixed": "#e7e1e2",
+                        "on-surface": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1c1b1b",
+                        "surface": "#fdf8f7",
+                        "on-secondary-fixed-variant": "#454747",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#494647",
+                        "inverse-primary": "#c8c6c2",
+                        "outline": "#787770",
+                        "background": "#fdf8f7",
+                        "surface-variant": "#e5e2e0",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#ddd9d8",
+                        "primary-container": "#faf7f2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "on-primary-fixed": "#1c1c19",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "surface-container-low": "#f7f3f1",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#72716d",
+                        "tertiary": "#615d5e",
+                        "surface-tint": "#5f5e5b",
+                        "on-primary-fixed-variant": "#474743",
+                        "outline-variant": "#c8c7be",
+                        "inverse-surface": "#313030",
+                        "secondary-container": "#dfe0e0",
+                        "primary-fixed": "#e5e2dd",
+                        "tertiary-fixed-dim": "#cbc5c6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#fdf6f7",
+                        "secondary": "#5d5f5f",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#474741",
+                        "on-secondary-container": "#616363",
+                        "inverse-on-surface": "#f4f0ef",
+                        "on-tertiary-container": "#757071",
+                        "primary": "#5f5e5b",
+                        "surface-bright": "#fdf8f7"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "handwritten-note": ["Bricolage Grotesque"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "handwritten-note": ["20px", { lineHeight: "24px", fontWeight: "500" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "label-sm": ["13px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "display-lg-mobile": ["32px", { lineHeight: "40px", fontWeight: "700" }]
+                    },
+                    backgroundImage: {
+                        'lined-paper': 'linear-gradient(transparent 95%, #dfe0e0 95%)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        .sticky-note {
+            transform: rotate(-1deg);
+            transition: transform 0.2s ease;
+        }
+        .sticky-note:hover {
+            transform: rotate(0deg);
+        }
+        .tape {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 80px;
+            height: 25px;
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .paper-input {
+            background-image: linear-gradient(transparent 95%, #dfe0e0 95%);
+            background-size: 100% 32px;
+            line-height: 32px;
+            padding-top: 8px;
+            resize: none;
+        }
+        .paper-input:focus {
+            outline: none;
+            box-shadow: inset 0 -2px 0 0 #fdf6f7;
+        }
+        
+        /* Simulating Coffee Stain */
+        .coffee-stain {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid rgba(74, 64, 58, 0.05);
+            background: transparent;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Top Navigation (Transactional intent - Suppressed but kept minimal for 'Back' action) -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md text-primary dark:text-primary-fixed font-body-md text-body-md docked full-width top-0 sticky z-50 shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg p-2">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-label-sm text-label-sm">Back</span>
+</button>
+<div class="font-handwritten-note text-handwritten-note text-primary dark:text-primary-fixed">KitchenBoard</div>
+<div class="w-20"></div> <!-- Spacer for centering -->
+</div>
+</header>
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 relative">
+<!-- Decorative Coffee Stain -->
+<div class="coffee-stain top-20 right-10 md:right-32 rotate-12 hidden md:block"></div>
+<div class="coffee-stain bottom-40 left-5 md:left-20 rotate-45 scale-75 opacity-50"></div>
+<div class="max-w-3xl mx-auto">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-8 text-on-surface text-center md:text-left">Add a New Recipe</h1>
+<!-- Recipe Journal Container -->
+<form class="bg-surface-container-lowest shadow-md rounded-lg p-6 md:p-10 relative mb-12 border border-outline-variant">
+<!-- The 'Paper' feeling background overlay -->
+<div class="absolute inset-0 bg-primary-container opacity-20 rounded-lg pointer-events-none"></div>
+<div class="relative z-10 space-y-10">
+<!-- Cover Image Upload (Tape Effect) -->
+<div class="relative sticky-note bg-surface-container-low p-4 rounded-md shadow-sm border border-outline-variant mx-auto max-w-md mt-4">
+<div class="tape"></div>
+<div class="aspect-video bg-surface-variant rounded flex flex-col items-center justify-center border-2 border-dashed border-outline-variant cursor-pointer hover:bg-secondary-container transition-colors relative overflow-hidden group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2 group-hover:scale-110 transition-transform">add_a_photo</span>
+<span class="font-handwritten-note text-handwritten-note text-on-surface-variant">Tap to pin a photo</span>
+<!-- Placeholder Image (Hidden by default, shown when "uploaded") -->
+<img alt="Recipe cover preview" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity" data-alt="A warm, top-down shot of a beautifully rustic wooden cutting board with fresh herbs, colorful chopped vegetables, and a well-used chef's knife. The lighting is soft morning sunlight streaming through a kitchen window, creating a cozy, optimistic culinary atmosphere. High-end food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC26hpP7lAo5R6tLSiEBUBO0-ApEanf6PPoiX0npqpHSr21wcg-tm3tdUdz90kAqTPAR-t13AalsxJBdP7Jy4QTGGx3YyaJ9FDE_9mnhNDOoYYfG3NVpdDgIxbg_lz2r6aeD6loS4UxCGCxWm6h9EMCbMPW1H-KXD6aBAQSk_ibGlmepGheNTS-jMIXTnPGF8uXZHGl1s6TJ6chcnFJVV2LyqE27Hy17EpajtpLnhIqNFOuYFKdWIpW"/>
+</div>
+</div>
+<!-- Recipe Title -->
+<div>
+<label class="block font-handwritten-note text-handwritten-note text-on-surface mb-2 pl-2" for="recipe-title">Recipe Name</label>
+<input class="w-full bg-transparent border-none text-headline-md font-headline-md text-on-surface placeholder-on-surface-variant/50 focus:ring-0 paper-input py-2" id="recipe-title" placeholder="e.g., Grandma's Sunday Sauce" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Details (Prep, Cook, Servings) - Sticky Note style -->
+<div class="md:col-span-1 space-y-6 bg-tertiary-container p-6 rounded-lg shadow-sm border border-outline-variant transform rotate-1">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<div class="w-full">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase block">Prep Time</label>
+<input class="w-full bg-transparent border-b border-outline-variant border-t-0 border-l-0 border-r-0 px-0 py-1 text-body-md font-body-md focus:ring-0 focus:border-primary" placeholder="15 mins" type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">local_fire_department</span>
+<div class="w-full">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase block">Cook Time</label>
+<input class="w-full bg-transparent border-b border-outline-variant border-t-0 border-l-0 border-r-0 px-0 py-1 text-body-md font-body-md focus:ring-0 focus:border-primary" placeholder="45 mins" type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">restaurant</span>
+<div class="w-full">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase block">Servings</label>
+<input class="w-full bg-transparent border-b border-outline-variant border-t-0 border-l-0 border-r-0 px-0 py-1 text-body-md font-body-md focus:ring-0 focus:border-primary" placeholder="4" type="text"/>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="md:col-span-2 space-y-8">
+<!-- Ingredients -->
+<div>
+<label class="block font-handwritten-note text-handwritten-note text-on-surface mb-2 pl-2" for="ingredients">Ingredients</label>
+<textarea class="w-full bg-transparent border-none text-body-lg font-body-lg text-on-surface placeholder-on-surface-variant/50 focus:ring-0 paper-input" id="ingredients" placeholder="- 2 cups flour
+- 1 tsp salt
+..." rows="5"></textarea>
+</div>
+<!-- Instructions -->
+<div>
+<label class="block font-handwritten-note text-handwritten-note text-on-surface mb-2 pl-2" for="instructions">Instructions</label>
+<textarea class="w-full bg-transparent border-none text-body-lg font-body-lg text-on-surface placeholder-on-surface-variant/50 focus:ring-0 paper-input" id="instructions" placeholder="1. Preheat the oven...
+2. Mix the dry ingredients...
+..." rows="8"></textarea>
+</div>
+</div>
+</div>
+<!-- Notes -->
+<div class="pt-4 border-t border-outline-variant/30">
+<label class="block font-handwritten-note text-handwritten-note text-on-surface mb-2 pl-2 text-sm text-on-surface-variant" for="notes">Personal Notes / Memories</label>
+<input class="w-full bg-transparent border-none text-body-md font-body-md text-on-surface placeholder-on-surface-variant/50 focus:ring-0 italic text-on-surface-variant" id="notes" placeholder="Tastes better the next day!" type="text"/>
+</div>
+</div>
+</form>
+<!-- Action Area -->
+<div class="flex justify-center md:justify-end">
+<button class="bg-[#4CAF50] hover:bg-[#43a047] text-white font-headline-md text-headline-md py-4 px-10 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex items-center gap-3 w-full md:w-auto justify-center" type="button">
+<span class="material-symbols-outlined icon-filled">done</span>
+                    Commit Recipe
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm w-full mt-auto border-t border-outline-variant dark:border-outline flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-gutter w-full max-w-container-max mx-auto">
+<div class="mb-4 md:mb-0">© 2024 KitchenBoard - Crafted with morning optimism.</div>
+<div class="flex gap-6">
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">About</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Contact</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Kitchen Rules</a>
+</div>
+</footer>
+</body></html>

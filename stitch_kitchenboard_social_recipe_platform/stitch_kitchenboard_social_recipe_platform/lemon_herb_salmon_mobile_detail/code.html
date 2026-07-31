@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recipe Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Bricolage+Grotesque:opsz,wght@12..96,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f7f3f1",
+                        "on-primary-fixed-variant": "#474743",
+                        "surface-variant": "#e5e2e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "outline-variant": "#c8c7be",
+                        "background": "#fdf8f7",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf8f7",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e7e1e2",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#5f5e5b",
+                        "on-secondary-fixed-variant": "#454747",
+                        "tertiary-container": "#fdf6f7",
+                        "inverse-primary": "#c8c6c2",
+                        "on-primary-container": "#72716d",
+                        "outline": "#787770",
+                        "primary-container": "#faf7f2",
+                        "secondary-container": "#dfe0e0",
+                        "on-tertiary-container": "#757071",
+                        "on-secondary-container": "#616363",
+                        "on-tertiary-fixed": "#1d1b1c",
+                        "on-surface-variant": "#474741",
+                        "surface-container": "#f1edec",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f4f0ef",
+                        "tertiary": "#615d5e",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#cbc5c6",
+                        "on-tertiary-fixed-variant": "#494647",
+                        "surface-tint": "#5f5e5b",
+                        "surface-container-high": "#ebe7e6",
+                        "secondary": "#5d5f5f",
+                        "on-primary-fixed": "#1c1c19",
+                        "surface-dim": "#ddd9d8",
+                        "on-surface": "#1c1b1b",
+                        "surface": "#fdf8f7",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#e5e2dd",
+                        "inverse-surface": "#313030",
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "handwritten-note": ["Bricolage Grotesque"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "handwritten-note": ["20px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .notebook-paper {
+            background-color: #fffdf9;
+            background-image: linear-gradient(#e5e2e0 1px, transparent 1px);
+            background-size: 100% 32px;
+            background-position: 0 40px;
+        }
+        .paper-fold-top {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), 50% 100%, 0 calc(100% - 20px));
+        }
+        .tape {
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            transform: rotate(-2deg);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased pb-24 md:pb-0">
+<!-- TopAppBar (Transactional - Hidden Navigation Shell on Mobile) -->
+<header class="flex justify-between items-center px-gutter w-full fixed top-0 z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm h-[64px]">
+<button class="text-on-surface-variant hover:bg-surface-variant/50 transition-colors p-2 rounded-full scale-95 active:transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Recipe Detail</span>
+<button class="text-on-surface-variant hover:bg-surface-variant/50 transition-colors p-2 rounded-full scale-95 active:transition-all">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<main class="pt-[64px]">
+<!-- Hero Section with Paper Fold -->
+<section class="relative w-full h-72 md:h-96">
+<div class="absolute inset-0 paper-fold-top bg-surface-container-low shadow-md overflow-hidden z-10">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated Lemon Herb Salmon dish, featuring a perfectly seared salmon fillet topped with fresh dill and lemon slices, resting on a bed of quinoa. The scene is shot from a top-down angle in a cozy kitchen setting, bathed in warm, soft morning sunlight streaming through a window. The overall aesthetic is bright, inviting, and culinary-focused, utilizing a warm color palette with fresh green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCvw0J-gumur0E8iOgk5sqAs9jVOv8d_j2KntwtJM0P0_58ZsogYa3aIBjyXPff-esMucJeAdTA324HBjdAJlNcQMDPvK24m3MYlyYOid049dXrRQEfzK_pUncPTKlfXG_jtLsNV7K7QyXQnzppE5cJpaGuhPA4Fed2MAQlEm-wJjaheh9DKmfyAhEzJ2LxFhI8GlX2-ygdQyAqb2dTVwi1km6tuFxQ411V-nqJNe5qFj2SK82u19H"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-10 left-gutter right-gutter">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-white mb-2">Lemon Herb Salmon</h1>
+<div class="flex items-center gap-4 text-white/90">
+<span class="flex items-center gap-1 font-label-sm text-label-sm"><span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> 25 mins</span>
+<span class="flex items-center gap-1 font-label-sm text-label-sm"><span class="material-symbols-outlined text-sm" data-icon="group">group</span> 2 Servings</span>
+</div>
+</div>
+</div>
+<!-- Decorative Tape -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 tape z-20"></div>
+</section>
+<div class="px-margin-mobile mt-unit space-y-6">
+<!-- Action Buttons -->
+<div class="flex gap-4 justify-center">
+<button class="flex-1 bg-[#4CAF50] text-white py-3 rounded-full font-label-sm text-label-sm shadow-md hover:-translate-y-0.5 transition-transform">Cook Now</button>
+<button class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full shadow-sm text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="bookmark_border">bookmark_border</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full shadow-sm text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+<!-- Ingredients (Sticky Note style) -->
+<section class="bg-primary-container p-6 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.05)] relative rotate-[-1deg]">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-outline/20 flex items-center justify-center shadow-inner">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+</div>
+<h2 class="font-handwritten-note text-handwritten-note text-on-primary-container mb-4">Ingredients</h2>
+<ul class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+<li class="flex items-start gap-3">
+<input class="mt-1 w-5 h-5 rounded border-outline text-[#4CAF50] focus:ring-[#4CAF50]" type="checkbox"/>
+<span>2 Salmon fillets (6 oz each)</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 w-5 h-5 rounded border-outline text-[#4CAF50] focus:ring-[#4CAF50]" type="checkbox"/>
+<span>1 Lemon (juiced and zested)</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 w-5 h-5 rounded border-outline text-[#4CAF50] focus:ring-[#4CAF50]" type="checkbox"/>
+<span>2 tbsp Fresh dill, chopped</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 w-5 h-5 rounded border-outline text-[#4CAF50] focus:ring-[#4CAF50]" type="checkbox"/>
+<span>1 tbsp Olive oil</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 w-5 h-5 rounded border-outline text-[#4CAF50] focus:ring-[#4CAF50]" type="checkbox"/>
+<span>Salt and pepper to taste</span>
+</li>
+</ul>
+</section>
+<!-- Instructions (Notebook style) -->
+<section class="notebook-paper p-6 rounded-xl shadow-md border border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Instructions</h2>
+<div class="space-y-8">
+<div class="relative">
+<span class="absolute -left-3 top-1 font-handwritten-note text-handwritten-note text-primary">1.</span>
+<p class="font-body-md text-body-md text-on-surface-variant pl-6">Preheat oven to 400°F (200°C). Line a baking sheet with parchment paper.</p>
+</div>
+<div class="relative">
+<span class="absolute -left-3 top-1 font-handwritten-note text-handwritten-note text-primary">2.</span>
+<p class="font-body-md text-body-md text-on-surface-variant pl-6">Place salmon fillets on the prepared baking sheet. Drizzle with olive oil and rub gently to coat.</p>
+</div>
+<div class="relative">
+<span class="absolute -left-3 top-1 font-handwritten-note text-handwritten-note text-primary">3.</span>
+<p class="font-body-md text-body-md text-on-surface-variant pl-6">Season generously with salt, pepper, lemon zest, and fresh dill.</p>
+</div>
+<div class="relative">
+<span class="absolute -left-3 top-1 font-handwritten-note text-handwritten-note text-primary">4.</span>
+<p class="font-body-md text-body-md text-on-surface-variant pl-6">Bake for 12-15 minutes, or until the salmon flakes easily with a fork. Squeeze fresh lemon juice over the top before serving.</p>
+</div>
+</div>
+</section>
+<!-- Community Variations (Carousel) -->
+<section class="pt-4 pb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4">Community Variations</h2>
+<div class="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar">
+<!-- Card 1 -->
+<div class="min-w-[240px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm snap-start border border-outline-variant/20 relative">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="A variation of the Lemon Herb Salmon dish featuring a spicy cajun rub, served alongside roasted asparagus spears. The image is styled in a cozy, bright kitchen aesthetic with soft natural lighting and warm undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLotgunMy4hg52PThcz4oK28I9HBhFasiCsmxihAAS5AZORqKEXIe4q06z83aUQb10bmfVx9hIiTfZSU1Y5lViWPCWF6NAaFOILtRsbYKDFDB0PtSNTSEybDdJHoJ71SBKQrAz5oqj7d8zHLWD_WDCjRBF4mg410iBSJhOlbnwR5q2BoTIxYvSgnbTRAeRO3uKRx4G6QY6M6k_qez70dqZs_adgmhh5ymNfQq5-pHnQxsi_RvavKTL"/>
+</div>
+<div class="p-4 relative bg-surface/80 backdrop-blur-md -mt-8 pt-8">
+<h3 class="font-label-sm text-label-sm text-on-surface mb-1">Spicy Cajun Twist</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Added cajun seasoning instead of dill.</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-secondary-container" data-icon="person">person</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-xs">@ChefMike</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[240px] bg-surface-container-low rounded-xl overflow-hidden shadow-sm snap-start border border-outline-variant/20 relative">
+<div class="h-32 w-full relative">
+<img class="w-full h-full object-cover" data-alt="A variation of the Lemon Herb Salmon dish, pan-seared to a crispy skin, resting on a bed of creamy garlic mashed potatoes. The food styling is rustic yet modern, captured in bright, morning kitchen lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQTTE3zEUar-tqsOW6R8SSpbzTFddc7DlDGMhxGI17Ga2WVsRe7CEAqBEWIYJ-XjKxH_W5xeLXVpASDPZdomYs-y4ccb2wB05HGrV1OUGuBP9JRKkDGtrb5ev1yluTSi2Jv5KGtBGYr9AISV0VbLjDoiJZ1VpNIMj0ND9BMA-c9JboCT7tR4rqFderDOQ1zZAzFNb4ICKXJvdWY7lopGIOzeMMwFud9vUkJP_-_Gxm4GNVpShgwT3"/>
+</div>
+<div class="p-4 relative bg-surface/80 backdrop-blur-md -mt-8 pt-8">
+<h3 class="font-label-sm text-label-sm text-on-surface mb-1">Pan-Seared Crispy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Pan-seared for a crispy skin finish.</p>
+<div class="mt-2 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-secondary-container" data-icon="person">person</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-xs">@SarahCooks</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

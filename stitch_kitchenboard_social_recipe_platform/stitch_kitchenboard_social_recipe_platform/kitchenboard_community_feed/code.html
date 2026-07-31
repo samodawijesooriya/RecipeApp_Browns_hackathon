@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Community - KitchenBoard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1d1b1c",
+                        "surface-container-high": "#ebe7e6",
+                        "surface-container": "#f1edec",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "tertiary-fixed": "#e7e1e2",
+                        "on-surface": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1c1b1b",
+                        "surface": "#fdf8f7",
+                        "on-secondary-fixed-variant": "#454747",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#494647",
+                        "inverse-primary": "#c8c6c2",
+                        "outline": "#787770",
+                        "background": "#fdf8f7",
+                        "surface-variant": "#e5e2e0",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#ddd9d8",
+                        "primary-container": "#faf7f2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "on-primary-fixed": "#1c1c19",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "surface-container-low": "#f7f3f1",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#72716d",
+                        "tertiary": "#615d5e",
+                        "surface-tint": "#5f5e5b",
+                        "on-primary-fixed-variant": "#474743",
+                        "outline-variant": "#c8c7be",
+                        "inverse-surface": "#313030",
+                        "secondary-container": "#dfe0e0",
+                        "primary-fixed": "#e5e2dd",
+                        "tertiary-fixed-dim": "#cbc5c6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#fdf6f7",
+                        "secondary": "#5d5f5f",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#474741",
+                        "on-secondary-container": "#616363",
+                        "inverse-on-surface": "#f4f0ef",
+                        "on-tertiary-container": "#757071",
+                        "primary": "#5f5e5b",
+                        "surface-bright": "#fdf8f7"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "handwritten-note": ["Bricolage Grotesque"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "handwritten-note": ["20px", { lineHeight: "24px", fontWeight: "500" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "label-sm": ["13px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "display-lg-mobile": ["32px", { lineHeight: "40px", fontWeight: "700" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .paper-texture {
+            background-color: #fdf8f7; /* background */
+            background-image: 
+                radial-gradient(#e5e2e0 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: 0 0;
+        }
+        
+        .sunlight-gradient {
+            background: linear-gradient(135deg, rgba(250, 247, 242, 0.8) 0%, rgba(253, 248, 247, 0.2) 100%);
+            pointer-events: none;
+        }
+
+        .sticky-shadow {
+            box-shadow: 
+                0 -1px 2px rgba(0,0,0,0.05),
+                4px 8px 16px rgba(0,0,0,0.1),
+                8px 16px 24px rgba(0,0,0,0.05);
+        }
+
+        .magnet-shadow {
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.5);
+        }
+        
+        .glass-panel {
+            background: rgba(253, 248, 247, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Masonry Grid Setup */
+        .masonry {
+            column-count: 1;
+            column-gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .masonry { column-count: 2; }
+        }
+        @media (min-width: 1024px) {
+            .masonry { column-count: 3; }
+        }
+        @media (min-width: 1280px) {
+            .masonry { column-count: 4; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+        
+        /* Imperfect rotation */
+        .rotate-pos { transform: rotate(1.5deg); }
+        .rotate-neg { transform: rotate(-1.5deg); }
+        .rotate-pos-slight { transform: rotate(0.5deg); }
+        .rotate-neg-slight { transform: rotate(-0.5deg); }
+        
+        @media (max-width: 767px) {
+            .rotate-pos, .rotate-neg, .rotate-pos-slight, .rotate-neg-slight {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background paper-texture min-h-screen flex flex-col relative overflow-x-hidden font-body-md">
+<!-- Warm Sunlight Overlay -->
+<div class="fixed inset-0 sunlight-gradient z-0"></div>
+<!-- Top Navigation Container -->
+<nav class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md text-primary dark:text-primary-fixed font-body-md text-body-md shadow-sm docked full-width top-0 sticky z-50 bg-surface-container-low/50 dark:bg-surface-container-high/50 flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto relative z-50">
+<!-- Search & Logo Area -->
+<div class="flex items-center gap-6">
+<span class="font-handwritten-note text-handwritten-note text-primary dark:text-primary-fixed">KitchenBoard</span>
+<div class="hidden md:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-hover:text-primary transition-colors">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary/20 transition-shadow w-64 text-label-sm font-label-sm placeholder:text-on-surface-variant/70" placeholder="Search recipes, ingredients..." type="text"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-2 py-1" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 px-2" href="#">Community</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-2 py-1" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-2 py-1" href="#">Saved</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-2 py-1" href="#">Leaderboard</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-[#4CAF50] hover:bg-[#43a047] text-white px-4 py-2 rounded-full font-label-sm text-label-sm shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                Commit Recipe
+            </button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-variant/30 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border-2 border-surface-variant object-cover cursor-pointer" data-alt="A detailed portrait of a user avatar smiling warmly in a bright modern kitchen, highly realistic, glowing morning light, 8k resolution, minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsPn3NuzSq6zOvGfRn3z8NRUAmXPz7ThNBW0aC__EKtFIL4JK-gIK1O6i_HdQWN-Y6sLi9WPlHEqtMxoagU8SgJVhZLMes2wfiEfedu-zZ7bg-RUyLoslbecGEZVxZk4IXCrsGFfrAL3JSWRTyfN1_M2u2EDY3kBKUvjIExbNh_Uu5Jl6xt0poO4JwzuEPSeJLSgxxIc5wL2VF4x7XeA0m3FTHcqsh3x7O_wcPnr-KOXfE1oyF7rkz"/>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 relative z-10">
+<!-- Page Header -->
+<header class="mb-12 text-center md:text-left">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-2">Community Kitchen</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">See what's cooking right now. Pin your favorites.</p>
+<!-- Filter Pills -->
+<div class="flex flex-wrap gap-2 mt-6 justify-center md:justify-start">
+<button class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label-sm text-label-sm shadow-sm border border-outline-variant/30 hover:bg-secondary-fixed transition-colors">Trending Today</button>
+<button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-sm text-label-sm border border-outline-variant/30 hover:bg-surface-container-highest transition-colors">Baking</button>
+<button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-sm text-label-sm border border-outline-variant/30 hover:bg-surface-container-highest transition-colors">Quick Dinners</button>
+<button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-sm text-label-sm border border-outline-variant/30 hover:bg-surface-container-highest transition-colors">Vegan</button>
+</div>
+</header>
+<!-- Masonry Feed -->
+<div class="masonry">
+<!-- Card 1: Pastel Pink (Editor's Pick) -->
+<article class="masonry-item bg-[#fff0f3] rounded-lg p-3 sticky-shadow relative rotate-pos group transition-transform hover:z-20">
+<!-- Tape -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/60 backdrop-blur-sm shadow-sm rotate-2 z-10 border border-white/20"></div>
+<!-- Badge -->
+<div class="absolute top-4 right-4 bg-tertiary text-on-tertiary px-2 py-1 rounded text-[10px] font-bold tracking-wider z-10 flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> EDITOR'S PICK
+                </div>
+<div class="relative rounded overflow-hidden mb-3 aspect-[3/4]">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A towering slice of fluffy ricotta pancakes dripping with amber maple syrup and dusted with powdered sugar. Warm, golden morning light streaming through a kitchen window, casting soft shadows on a rustic wooden table. Macro food photography style, inviting, cozy kitchen atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClwEm7KdOYShP7vIkn7r_sgjp9xB7eC7NHnzVMP2l2Vu4IVW39eYXbB6oIW_ZVwxp4l10Ea0zEdIRQowYd4a6efHq4x8CeriglmzoyIbJ9JxS_TGtSsR4TuGvY0KmHZ1XeAQNqQjI29VdgNUwywexRM5hHDllTlTQtgsfxZen8O2Q3b1qWuMHtOjnWDHWZk4-EtLQEaDsm-eTLKmgWoOysqcPb2WuL5kx4S1J0BZxvgqN2Y36ojQzi"/>
+<!-- Glassmorphic bottom section -->
+<div class="absolute bottom-0 left-0 right-0 p-3 glass-panel border-t border-white/20 flex justify-between items-end">
+<div>
+<h3 class="font-handwritten-note text-handwritten-note text-on-surface leading-tight">Sunday Ricotta Pancakes</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @baker_sarah
+                            </p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex justify-between items-center px-1 pt-2 border-t border-on-surface/10">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-[18px] group-hover/btn:-translate-y-0.5 transition-transform">keyboard_arrow_up</span>
+<span class="font-label-sm text-label-sm">4.2k</span>
+</button>
+<button class="text-on-surface-variant hover:text-error transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+</article>
+<!-- Card 2: Pastel Blue -->
+<article class="masonry-item bg-[#f0f8ff] rounded-lg p-3 sticky-shadow relative rotate-neg-slight group transition-transform hover:z-20">
+<!-- Magnet -->
+<div class="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-secondary magnet-shadow z-10 flex items-center justify-center">
+<div class="w-4 h-4 rounded-full bg-secondary-fixed-dim"></div>
+</div>
+<!-- Badge -->
+<div class="absolute top-6 right-4 bg-primary text-on-primary px-2 py-1 rounded text-[10px] font-bold tracking-wider z-10 flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">restaurant</span> MOST FORKED
+                </div>
+<div class="relative rounded overflow-hidden mb-3 aspect-square mt-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A steaming bowl of rich, red tomato basil soup next to a perfectly grilled cheese sandwich cut into triangles. The sandwich shows gooey, melted cheddar stretching slightly. Placed on a light blue pastel kitchen towel. Bright, airy lighting, comforting, home-cooked aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdDc-_KKrT9SI1LuWzUtXebeflXlTM2Cmuj897N3tY3Hj76u945Os8tW-xIxBN-CKPydB0siv82GRnQUV0t6Dl9BZVgxj9emtTM_-yrto2uOAuOPgDrrppRku6sFAx0jC_hKmzjlMFPEFUAO5ziF-uYW3pS8J4-if2Pe9-87cSY0M0n4spGRnu32P06u1JZl2158HV2EhKwGvWPgNjwFZS41RFcli1UgjYwyCQndkjffKk54pGIoqs"/>
+<div class="absolute bottom-0 left-0 right-0 p-3 glass-panel border-t border-white/20">
+<h3 class="font-handwritten-note text-handwritten-note text-on-surface leading-tight">Classic Tomato Soup</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @comfort_cook
+                        </p>
+</div>
+</div>
+<div class="flex justify-between items-center px-1 pt-2 border-t border-on-surface/10">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-[18px] group-hover/btn:-translate-y-0.5 transition-transform">keyboard_arrow_up</span>
+<span class="font-label-sm text-label-sm">8.1k</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+</article>
+<!-- Card 3: Pastel Yellow -->
+<article class="masonry-item bg-[#fffcf0] rounded-lg p-3 sticky-shadow relative rotate-pos-slight group transition-transform hover:z-20">
+<!-- Tape -->
+<div class="absolute -top-3 right-4 w-12 h-5 bg-white/70 backdrop-blur-sm shadow-sm -rotate-6 z-10 border border-white/20"></div>
+<div class="relative rounded overflow-hidden mb-3 aspect-video">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A rustic cast iron skillet filled with bubbling shakshuka, vibrant red tomato sauce studded with perfectly poached eggs with runny golden yolks. Garnished with fresh cilantro. Top-down view on a wooden countertop, warm morning sunlight, highly detailed and appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhPb8oFgHST5pOeClT8zVFB8QSFZXFIQiMK9R_EbCB2GzSFhBXxermYCi8ihTjbGSSQOdJfPW3rRO1nGGP3mfufURn2I-nuR8VF4Ahto4mK-FQYqv7GKoC71sYV4mhHJ5C5M_80S2KHYkscqOxd0L3zThM7I3g0e9i6jR4v7gQ116hY8Putw5tsGMs_apwSFwjgMF0TgcaO_vOG5xAoCtyeCjiqCod4dUJ9eyX7cuClSai3MwPbVxY"/>
+<div class="absolute bottom-0 left-0 right-0 p-3 glass-panel border-t border-white/20">
+<h3 class="font-handwritten-note text-handwritten-note text-on-surface leading-tight">Morning Shakshuka</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @egg_enthusiast
+                        </p>
+</div>
+</div>
+<div class="flex justify-between items-center px-1 pt-2 border-t border-on-surface/10">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-[18px] group-hover/btn:-translate-y-0.5 transition-transform">keyboard_arrow_up</span>
+<span class="font-label-sm text-label-sm">2.4k</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark_added</span>
+</button>
+</div>
+</article>
+<!-- Card 4: Pastel Green -->
+<article class="masonry-item bg-[#f0fff4] rounded-lg p-3 sticky-shadow relative rotate-neg group transition-transform hover:z-20">
+<!-- Clip -->
+<div class="absolute -top-4 left-6 z-10 text-outline-variant drop-shadow-md">
+<svg fill="none" height="40" viewbox="0 0 24 40" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2C7.58172 2 4 5.58172 4 10V26C4 32.6274 9.37258 38 16 38C20.4183 38 24 34.4183 24 30V10C24 7.79086 22.2091 6 20 6C17.7909 6 16 7.79086 16 10V26C16 26.5523 15.5523 27 15 27C14.4477 27 14 26.5523 14 26V10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10V26C10 29.3137 12.6863 32 16 32C17.1046 32 18 31.1046 18 30V10" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="relative rounded overflow-hidden mb-3 aspect-[4/5] mt-2">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A vibrant, fresh green goddess salad in a wide ceramic bowl, packed with crisp lettuce, avocado, edamame, and cucumber, generously drizzled with a creamy green dressing. Shot from a slight angle in a bright, modern kitchen setting, highlighting textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaeSGKD4bPidTbaV3ahpc8_bn7qnBjeeh-KfdSscg3kyse0vvKwqBd5-mV7U2j5TX02yMx5xEQiNTeLO5NETRQK6h6GGbC2gphcJhtmjA8ls4s17vx5LJrMP2S01ghFp8rnYCG1VZc2h1BDZtr-FIGOLKQJJ2V2PBGuBGXIreT3WlsU5NkWyec3p-15BHliLglgV_LLAlmyXYfHdSd3w6RI3EJ2mP2lmVdUqMiyJNyRXT8FypzCH5k"/>
+<div class="absolute bottom-0 left-0 right-0 p-3 glass-panel border-t border-white/20">
+<h3 class="font-handwritten-note text-handwritten-note text-on-surface leading-tight">Green Goddess Crunch</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> @healthy_habits
+                        </p>
+</div>
+</div>
+<div class="flex justify-between items-center px-1 pt-2 border-t border-on-surface/10">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 group/btn">
+<span class="material-symbols-outlined text-[18px] group-hover/btn:-translate-y-0.5 transition-transform">keyboard_arrow_up</span>
+<span class="font-label-sm text-label-sm">5.9k</span>
+</button>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+</article>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm w-full mt-auto border-t border-outline-variant dark:border-outline flat flex flex-col md:flex-row justify-between items-center px-margin-desktop py-gutter w-full max-w-container-max mx-auto relative z-20">
+<div class="font-handwritten-note text-handwritten-note mb-4 md:mb-0">
+            © 2024 KitchenBoard - Crafted with morning optimism.
+        </div>
+<div class="flex gap-6">
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">About</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Contact</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Kitchen Rules</a>
+</div>
+</footer>
+</body></html>

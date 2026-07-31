@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KitchenBoard - Mobile Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Inter:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f7f3f1",
+                        "on-primary-fixed-variant": "#474743",
+                        "surface-variant": "#e5e2e0",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e5e2e0",
+                        "outline-variant": "#c8c7be",
+                        "background": "#fdf8f7",
+                        "primary-fixed-dim": "#c8c6c2",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fdf8f7",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#e7e1e2",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#5f5e5b",
+                        "on-secondary-fixed-variant": "#454747",
+                        "tertiary-container": "#fdf6f7",
+                        "inverse-primary": "#c8c6c2",
+                        "on-primary-container": "#72716d",
+                        "outline": "#787770",
+                        "primary-container": "#faf7f2",
+                        "secondary-container": "#dfe0e0",
+                        "on-tertiary-container": "#757071",
+                        "on-secondary-container": "#616363",
+                        "on-tertiary-fixed": "#1d1b1c",
+                        "on-surface-variant": "#474741",
+                        "surface-container": "#f1edec",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f4f0ef",
+                        "tertiary": "#615d5e",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#cbc5c6",
+                        "on-tertiary-fixed-variant": "#494647",
+                        "surface-tint": "#5f5e5b",
+                        "surface-container-high": "#ebe7e6",
+                        "secondary": "#5d5f5f",
+                        "on-primary-fixed": "#1c1c19",
+                        "surface-dim": "#ddd9d8",
+                        "on-surface": "#1c1b1b",
+                        "surface": "#fdf8f7",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#e5e2dd",
+                        "inverse-surface": "#313030",
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "sticky-yellow": "#fef08a",
+                        "sticky-pink": "#fbcfe8",
+                        "sticky-blue": "#bfdbfe",
+                        "sticky-green": "#bbf7d0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "handwritten-note": ["Bricolage Grotesque"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "handwritten-note": ["20px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .sticky-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 4px 8px 12px -2px rgba(0,0,0,0.05);
+        }
+        .magnet {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.5);
+        }
+        /* Sunrise Shader Simulation Background */
+        body {
+            background: linear-gradient(135deg, #fffcf9 0%, #fff0e5 50%, #ffe4e1 100%);
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="h-full bg-background text-on-background antialiased flex flex-col md:hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-gutter w-full fixed top-0 z-50 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md shadow-sm h-16">
+<button class="text-on-surface-variant hover:bg-surface-variant/50 transition-colors p-2 rounded-full scale-95 active:transition-all">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-handwritten-note text-handwritten-note text-primary dark:text-primary-fixed-dim font-bold tracking-tight">
+            KitchenBoard
+        </div>
+<button class="text-on-surface-variant hover:bg-surface-variant/50 transition-colors p-2 rounded-full scale-95 active:transition-all">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Content (Canvas) -->
+<main class="flex-1 overflow-y-auto pt-20 pb-24 px-margin-mobile">
+<div class="mb-6 font-headline-md text-headline-md text-primary mt-2">
+            Morning, Chef.
+        </div>
+<!-- Today's Picks Section -->
+<section class="mb-8">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4 opacity-80 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">wb_sunny</span> Today's Picks
+            </h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Sticky Note 1 -->
+<article class="bg-sticky-yellow sticky-shadow p-3 pb-6 relative rotate-2 transition-transform active:scale-95">
+<div class="w-4 h-4 rounded-full bg-slate-700 magnet absolute -top-2 left-1/2 -translate-x-1/2"></div>
+<div class="w-full aspect-square mb-2 rounded overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-quality photograph of a freshly baked sourdough bread loaf with a crispy, golden-brown crust and a dusting of flour. The lighting is warm and natural, suggesting early morning sunlight streaming into a cozy kitchen. The aesthetic is tactile and rustic, matching a warm, home-cooked food theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUMJocWhTAQBXMoGiWLrRDJDrN3uMdYwgiZiUz1SN4tL8W3T33ynXiIBLoZb_wPyEl-DOp9qY_GGG9ZNGboQm7sAkSRTVI1cPWiwjnFqctlQWbrvNn8iwjvsLe7VebQDZUX0Mzr1BHNguV6qVp9zS5c9x_8xCHviaWVJj5rRRWEdYi04WGzFCJ4nMxPhMNsPxhn5Jc02WvZq9jx0LUatGF4-fnLuEU_x2mu25Tboa9SL47cwfmfXxx"/>
+</div>
+<h3 class="font-handwritten-note text-handwritten-note text-gray-800 leading-tight">Rustic Sourdough</h3>
+</article>
+<!-- Sticky Note 2 -->
+<article class="bg-sticky-pink sticky-shadow p-3 pb-6 relative -rotate-1 transition-transform active:scale-95 mt-4">
+<div class="w-4 h-4 rounded-full bg-red-500 magnet absolute -top-2 left-1/2 -translate-x-1/2"></div>
+<div class="w-full aspect-square mb-2 rounded overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated avocado toast on thick artisanal bread, topped with a poached egg and red pepper flakes. The setting is a bright, airy modern kitchen counter with soft morning light illuminating the fresh greens. The overall vibe is healthy, vibrant, and appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvQrON8lB7uAoVzKpDX4buKlzEKAgHD2LWgRNJWaOk4hVeJjSqoaDb_gLI_cUFNCBPA2d-cSQfw8kZJvJDe0NypYqQE4iWFEp0kRJfAnpJjllHnKfH9MtxSJfWhV-vXWCQmM1q7_uHHsHOLWe_tu1NgXX0FVHH5UcbjFUyPIIYZ5wqVCCBo1luGN0bwOpoGKj62GzQpbbZ8qCFzafWUTdBbsvwCeQo273wKheuYhwgHcS8ph04C8DG"/>
+</div>
+<h3 class="font-handwritten-note text-handwritten-note text-gray-800 leading-tight">Avo Toast</h3>
+</article>
+</div>
+</section>
+<!-- Recently Approved Section -->
+<section>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4 opacity-80 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Recently Approved
+            </h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Sticky Note 3 -->
+<article class="bg-sticky-blue sticky-shadow p-3 pb-6 relative -rotate-2 transition-transform active:scale-95">
+<div class="w-8 h-3 bg-gray-200/50 absolute -top-1 left-1/2 -translate-x-1/2 rounded-sm shadow-sm border border-gray-300/30"></div> <!-- Tape -->
+<div class="w-full aspect-video mb-2 rounded overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A steaming bowl of creamy tomato soup served with a grilled cheese sandwich cut into triangles. The scene is comforting and cozy, photographed from a slight top-down angle on a rustic wooden table. The lighting is soft and diffused, creating a welcoming, homey atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzEB73S9Gmn55RhuKHkftNc3wDC07fKGeNTzb0tp9oDgsbPwB-DQdwPzsX3lT9wm3OqKVzCQs83ShpFa4ZmHBPd0d27SaCiTlkv8rU9HZZWn5bu4qGj1qYJa8CWBrkh9fiEy15Ch2WzdGHYoHjeu5nPi4geTzWRMu4khiljUJdE4d-l7DO5nYp08W-rgqqIA1Ycp7E4ix4GFMJHoOKc3OLleVnoA4Wh0Me4fPAUFEW0Pq3kd8xJ_Ck"/>
+</div>
+<h3 class="font-handwritten-note text-handwritten-note text-gray-800 leading-tight">Tomato Soup</h3>
+</article>
+<!-- Sticky Note 4 -->
+<article class="bg-sticky-green sticky-shadow p-3 pb-6 relative rotate-1 transition-transform active:scale-95 mt-2">
+<div class="w-4 h-4 rounded-full bg-blue-500 magnet absolute -top-2 left-1/2 -translate-x-1/2"></div>
+<h3 class="font-handwritten-note text-[24px] text-gray-800 leading-tight mb-2 mt-2">Grocery List</h3>
+<ul class="font-body-md text-body-md text-gray-700 space-y-1 ml-4 list-disc opacity-80">
+<li>Eggs</li>
+<li>Flour</li>
+<li>Butter</li>
+<li>Yeast</li>
+</ul>
+</article>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl h-20">
+<!-- Active: Board -->
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 hover:opacity-80 transition-transform duration-150 active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">kitchen</span>
+<span class="font-label-sm text-label-sm mt-1">Board</span>
+</a>
+<!-- Inactive: Feed -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 transition-transform duration-150 active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm mt-1">Feed</span>
+</a>
+<!-- Inactive: Library -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 transition-transform duration-150 active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm mt-1">Library</span>
+</a>
+<!-- Inactive: Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:opacity-80 transition-transform duration-150 active:scale-90 w-16" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

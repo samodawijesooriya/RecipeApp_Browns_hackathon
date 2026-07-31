@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KitchenBoard - Recipe Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Bricolage+Grotesque:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-tertiary-fixed": "#1d1b1c",
+                      "surface-container-high": "#ebe7e6",
+                      "surface-container": "#f1edec",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "tertiary-fixed": "#e7e1e2",
+                      "on-surface": "#1c1b1b",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1c1b1b",
+                      "surface": "#fdf8f7",
+                      "on-secondary-fixed-variant": "#454747",
+                      "secondary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed-variant": "#494647",
+                      "inverse-primary": "#c8c6c2",
+                      "outline": "#787770",
+                      "background": "#fdf8f7",
+                      "surface-variant": "#e5e2e0",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#ddd9d8",
+                      "primary-container": "#faf7f2",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e5e2e0",
+                      "on-primary-fixed": "#1c1c19",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#c8c6c2",
+                      "surface-container-low": "#f7f3f1",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#72716d",
+                      "tertiary": "#615d5e",
+                      "surface-tint": "#5f5e5b",
+                      "on-primary-fixed-variant": "#474743",
+                      "outline-variant": "#c8c7be",
+                      "inverse-surface": "#313030",
+                      "secondary-container": "#dfe0e0",
+                      "primary-fixed": "#e5e2dd",
+                      "tertiary-fixed-dim": "#cbc5c6",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#fdf6f7",
+                      "secondary": "#5d5f5f",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#474741",
+                      "on-secondary-container": "#616363",
+                      "inverse-on-surface": "#f4f0ef",
+                      "on-tertiary-container": "#757071",
+                      "primary": "#5f5e5b",
+                      "surface-bright": "#fdf8f7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "handwritten-note": [
+                              "Bricolage Grotesque"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "handwritten-note": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            background-image: radial-gradient(theme('colors.outline-variant') 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .paper-clip {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 48px;
+            border: 3px solid theme('colors.outline-variant');
+            border-radius: 8px;
+            border-bottom: none;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            z-index: 10;
+            background: linear-gradient(90deg, #e5e2e0 0%, #fdf8f7 50%, #e5e2e0 100%);
+        }
+
+        .tape {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 80px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .folder-tab {
+            clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        
+        .tossed-1 { transform: rotate(1deg); }
+        .tossed-2 { transform: rotate(-1.5deg); }
+        .tossed-3 { transform: rotate(0.5deg); }
+        
+        @media (max-width: 768px) {
+            .tossed-1, .tossed-2, .tossed-3 { transform: none; }
+        }
+
+        .glass-panel {
+            background: rgba(253, 248, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .recipe-input {
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                theme('colors.outline-variant') 31px,
+                theme('colors.outline-variant') 32px
+            );
+            line-height: 32px;
+            padding-top: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md docked full-width top-0 sticky z-50 bg-surface-container-low/50 dark:bg-surface-container-high/50 shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-4">
+<span class="font-handwritten-note text-handwritten-note text-primary dark:text-primary-fixed">KitchenBoard</span>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-3 py-2 font-body-md text-body-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-3 py-2 font-body-md text-body-md" href="#">Community</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-3 py-2 font-body-md text-body-md" href="#">Saved</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg transition-all px-3 py-2 font-body-md text-body-md" href="#">Leaderboard</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex bg-[#4CAF50] text-on-primary px-4 py-2 rounded-lg hover:shadow-lg transition-shadow items-center gap-2 font-label-sm text-label-sm Active: scale-95 duration-150 ease-in-out">
+                    Commit Recipe
+                </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A close up portrait of a person smiling softly in a warm, sunlit kitchen environment, representing a user profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiK8m3nhUpabN-ORP8MNpNY72JBeMYYS2kcjn7sI-CZYqF3YcFAV7yk-zhyvpqKU0cF99z6va2V-C_Be4iCNdD0QTcTJ_YsJrA14SheTxE4gIeP8SYuOSHMeTkM9I5tqp1lC0zEfmMwNe4CQfMfwCiWKgDeq-QBU9Fg75cV9ONdH3Yrw9YnhC7F9RDiah54npgbEFBePc-HUokeV4_SDQ-T3mqbPKbhqoEHRA1hCAMcn94PV_Zvv2F"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col md:flex-row gap-8">
+<!-- Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0 flex flex-col gap-6">
+<!-- Quick Search Sticky Note -->
+<div class="bg-primary-container rounded-lg p-6 relative shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),_0_2px_4px_-1px_rgba(0,0,0,0.06),_4px_4px_8px_rgba(0,0,0,0.05)] tossed-1">
+<div class="tape"></div>
+<h3 class="font-handwritten-note text-handwritten-note text-on-surface mb-4 mt-2">Quick Search</h3>
+<div class="relative mb-4">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant z-10" data-icon="search">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-transparent border-none recipe-input text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-0 focus:shadow-[0_0_15px_rgba(255,218,185,0.4)] transition-shadow" placeholder="Find a recipe..." type="text"/>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-label-sm">Breakfast</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-label-sm">Vegan</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-label-sm">Under 30m</span>
+</div>
+</div>
+<!-- Trending Categories Notebook -->
+<div class="bg-surface-container rounded-lg p-6 border border-outline-variant/30 shadow-sm relative">
+<div class="paper-clip"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 mt-4 border-b border-outline-variant pb-2">Trending</h3>
+<ul class="space-y-3">
+<li><a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span> Cozy Soups</a></li>
+<li><a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span> Sourdough Basics</a></li>
+<li><a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="set_meal">set_meal</span> One-Pan Dinners</a></li>
+<li><a class="flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" data-icon="brunch_dining">brunch_dining</span> Weekend Brunch</a></li>
+</ul>
+</div>
+</aside>
+<!-- Main Library Area -->
+<section class="flex-grow flex flex-col gap-6">
+<!-- Folder Tabs -->
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="folder-tab bg-surface-container-high text-on-surface px-6 py-3 font-label-sm text-label-sm shadow-sm relative z-10 font-bold border-b-2 border-primary">All Recipes</button>
+<button class="folder-tab bg-surface-container-low text-on-surface-variant px-6 py-3 font-label-sm text-label-sm shadow-sm hover:bg-surface-container transition-colors mt-1">Cuisine</button>
+<button class="folder-tab bg-surface-container-low text-on-surface-variant px-6 py-3 font-label-sm text-label-sm shadow-sm hover:bg-surface-container transition-colors mt-1">Difficulty</button>
+<button class="folder-tab bg-surface-container-low text-on-surface-variant px-6 py-3 font-label-sm text-label-sm shadow-sm hover:bg-surface-container transition-colors mt-1">Dietary</button>
+</div>
+<!-- Bento Grid of Recipes -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-surface-container-highest/20 p-6 rounded-xl border border-outline-variant/20 -mt-2">
+<!-- Recipe Card 1 (Large Image) -->
+<article class="col-span-1 sm:col-span-2 relative rounded-xl overflow-hidden h-72 shadow-md group tossed-2">
+<img alt="Rustic Shakshuka" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A top-down view of a beautifully rustic shakshuka in a cast iron skillet, surrounded by crusty bread, on a wooden kitchen table with morning sunlight streaming in." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGdi_wUr-JDDAHK2lhyYFt7geD_hUJE9TRNNhQHVwSMj9oJ_raZeDREUsol9iOcwJ_jjYvuo7HDP5jikDkDTzsK12V1fA__8DDGHwz6mTNruxCNPLwxxi7hUiC2zCiNofMYMMF5_skOlI_2Q20W2QAKtw7ieZrtSqXKYHHsT3jCBwW7EB-UvOPGt5rAaSVsFZ3RN6MGoWDEjd96xPadm4o3yzpdOwskzNrqU9GfBjYzjYZ_cnamph"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+<div class="absolute bottom-0 w-full glass-panel p-4 border-t border-white/20">
+<div class="flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Morning Shakshuka</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">By Chef Sarah • 30 mins</p>
+</div>
+<button class="bg-surface/80 p-2 rounded-full hover:bg-surface transition-colors shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="bookmark_border">bookmark_border</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Recipe Card 2 -->
+<article class="col-span-1 relative rounded-xl overflow-hidden h-72 shadow-md group tossed-3">
+<img alt="Blueberry Pancakes" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close up of fluffy, golden-brown pancakes stacked high on a ceramic plate, drizzled with amber maple syrup and topped with fresh blueberries, soft morning lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-rk5XcbWA5oHV_BmL-3Gom_ncGcYA5hK61aLrcJZ8YJxYsjPfd3slrq1yErA72C08D5LO6oLB7KQ36tweGEF_QmeEvQ_KIq8CSj7hernXN7kyWAhKzCMgcImybKYaxWNCmYnVm5m0OCXRZQULMcglLw1rzHLYnDQ2QD6sZW24IBo0I80Do_R5NVoENv5WLV6b_v02QvVCN3iEssJqJP587oIhRrZAbXa-vw0VTHg2Li1JXrObeFrN"/>
+<div class="absolute bottom-0 w-full glass-panel p-4 border-t border-white/20 h-[35%] flex flex-col justify-end">
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface leading-tight mb-1">Fluffy Blueberry Pancakes</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">By Mark T. • 20 mins</p>
+</div>
+</article>
+<!-- Recipe Card 3 (Note Style) -->
+<article class="col-span-1 bg-secondary-container rounded-xl p-5 shadow-md flex flex-col justify-between h-72 tossed-1 relative border border-outline-variant/30">
+<div class="tape"></div>
+<div>
+<div class="flex justify-between items-start mb-4 mt-2">
+<span class="bg-surface/50 px-2 py-1 rounded text-xs font-label-sm text-on-surface-variant">Family Secret</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h4 class="font-handwritten-note text-handwritten-note text-on-surface mb-2 text-2xl">Grandma's Cinnamon Rolls</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-4 recipe-input h-24 overflow-hidden">The secret is in the resting time and generous amounts of real butter. Don't rush the proofing stage!</p>
+</div>
+<div class="flex items-center gap-2 mt-4 pt-4 border-t border-outline-variant/20">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed flex items-center justify-center text-xs font-bold text-on-tertiary-fixed">G</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">From Grandma Jo</span>
+</div>
+</article>
+<!-- Recipe Card 4 -->
+<article class="col-span-1 relative rounded-xl overflow-hidden h-72 shadow-md group">
+<img alt="Sourdough Loaf" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A rustic sourdough bread loaf fresh out of the oven, sitting on a wire rack next to a dusting of flour on a wooden kitchen counter. Warm, inviting atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Yc3xH3-2EMqgpKxM2FFXjSG8I4p0wccK-M5mt8NFevBZy1ofq5g9ztqHhjzJy9HWv0--RIvkh4sP7SuI74bNdJH-qJBaSiufSLHg7gBeY9_6o15AC7M9N7ddBbTzXhIZHKm8oy5iWaQpld9vFn09tb1d1ptcyAupAtrJcjJhdE62So0krWKWvkRaDBBo1m_85RmXbUqLDRDn4OeZHVk_gwDYh1-z58ASbpq41_Fwv5u0NgElStpg"/>
+<div class="absolute bottom-0 w-full glass-panel p-4 border-t border-white/20 h-[35%] flex flex-col justify-end">
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface leading-tight mb-1">Basic Sourdough</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">By ArtisanBakes • 24 hrs</p>
+</div>
+</article>
+<!-- Recipe Card 5 -->
+<article class="col-span-1 relative rounded-xl overflow-hidden h-72 shadow-md group tossed-2">
+<img alt="Grain Bowl" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A vibrant, healthy grain bowl with roasted sweet potatoes, quinoa, avocado, and a tahini drizzle in a handmade ceramic bowl. Bright, airy lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsOYa9bbY3v6_UrnkYhTUMnRpkKFsLhhQaHvwq3_Or7mvWOmTEseEdLNY7L8iq4JQzQjtYTgjGvCCmCJg7J4rWrLu7NFIC2NO2dyMpmWk_bqK97X-NM_BdHZB2VGb5V-2cVc9-zPuctgw_VK91VCFT9BF_xUnmwrmfgzy-FPYwtqMV6uTzQ-w4dRhFQGihxHiqdz_56T6siVtF2S_UrbJmbI3XE1SVh8DhVdiS26ccjLAgejOjkkhE"/>
+<div class="absolute bottom-0 w-full glass-panel p-4 border-t border-white/20 h-[35%] flex flex-col justify-end">
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface leading-tight mb-1">Roasted Veg Grain Bowl</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">By HealthyEats • 45 mins</p>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full mt-auto border-t border-outline-variant dark:border-outline flat">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-gutter w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop gap-4">
+<span class="text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm">© 2024 KitchenBoard - Crafted with morning optimism.</span>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm opacity-80 hover:opacity-100 transition-opacity text-on-surface-variant dark:text-surface-variant" href="#">About</a>
+<a class="font-label-sm text-label-sm opacity-80 hover:opacity-100 transition-opacity text-on-surface-variant dark:text-surface-variant" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm opacity-80 hover:opacity-100 transition-opacity text-on-surface-variant dark:text-surface-variant" href="#">Contact</a>
+<a class="font-label-sm text-label-sm opacity-80 hover:opacity-100 transition-opacity text-on-surface-variant dark:text-surface-variant" href="#">Kitchen Rules</a>
+</div>
+<span class="font-handwritten-note text-handwritten-note text-on-surface-variant dark:text-surface-variant hidden md:block">KitchenBoard</span>
+</div>
+</footer>
+</body></html>

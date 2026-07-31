@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KitchenBoard - Lemon Herb Salmon Recipe</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-tertiary-fixed": "#1d1b1c",
+                      "surface-container-high": "#ebe7e6",
+                      "surface-container": "#f1edec",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "tertiary-fixed": "#e7e1e2",
+                      "on-surface": "#1c1b1b",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1c1b1b",
+                      "surface": "#fdf8f7",
+                      "on-secondary-fixed-variant": "#454747",
+                      "secondary-fixed": "#e2e2e2",
+                      "on-tertiary-fixed-variant": "#494647",
+                      "inverse-primary": "#c8c6c2",
+                      "outline": "#787770",
+                      "background": "#fdf8f7",
+                      "surface-variant": "#e5e2e0",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#ddd9d8",
+                      "primary-container": "#faf7f2",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e5e2e0",
+                      "on-primary-fixed": "#1c1c19",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed-dim": "#c8c6c2",
+                      "surface-container-low": "#f7f3f1",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#72716d",
+                      "tertiary": "#615d5e",
+                      "surface-tint": "#5f5e5b",
+                      "on-primary-fixed-variant": "#474743",
+                      "outline-variant": "#c8c7be",
+                      "inverse-surface": "#313030",
+                      "secondary-container": "#dfe0e0",
+                      "primary-fixed": "#e5e2dd",
+                      "tertiary-fixed-dim": "#cbc5c6",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#fdf6f7",
+                      "secondary": "#5d5f5f",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#474741",
+                      "on-secondary-container": "#616363",
+                      "inverse-on-surface": "#f4f0ef",
+                      "on-tertiary-container": "#757071",
+                      "primary": "#5f5e5b",
+                      "surface-bright": "#fdf8f7",
+                      "accent-green": "#4CAF50"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Inter", "sans-serif"
+                      ],
+                      "body-md": [
+                              "Inter", "sans-serif"
+                      ],
+                      "handwritten-note": [
+                              "Bricolage Grotesque", "cursive"
+                      ],
+                      "body-lg": [
+                              "Inter", "sans-serif"
+                      ],
+                      "headline-md": [
+                              "Inter", "sans-serif"
+                      ],
+                      "label-sm": [
+                              "Inter", "sans-serif"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "handwritten-note": [
+                              "28px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              },
+              "boxShadow": {
+                "sticky": "0 4px 6px -1px rgba(0, 0, 0, 0.05), 4px 4px 15px -3px rgba(0, 0, 0, 0.1)",
+                "magnet": "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.4)"
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .notebook-lines {
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #e5e2e0 31px, #e5e2e0 32px);
+            background-attachment: local;
+        }
+        .tossed-slight { transform: rotate(-1deg); }
+        .tossed-right { transform: rotate(1.5deg); }
+        
+        @media (max-width: 768px) {
+            .tossed-slight, .tossed-right { transform: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 backdrop-blur-md text-primary font-body-md docked full-width top-0 sticky z-50 shadow-sm border-b-0 bg-surface-container-low/50 hidden md:block">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<!-- Brand & Search Container -->
+<div class="flex items-center gap-gutter">
+<a class="font-handwritten-note text-handwritten-note text-primary font-bold tracking-tight" href="#">KitchenBoard</a>
+<div class="relative hidden lg:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-body-md focus:bg-surface-container-lowest transition-colors" placeholder="Search recipes..." type="text"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg px-3 py-2" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg px-3 py-2" href="#">Community</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 px-3 py-2 active:scale-95 duration-150 ease-in-out" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg px-3 py-2" href="#">Saved</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/30 rounded-lg px-3 py-2" href="#">Leaderboard</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-variant/30 p-2 rounded-full transition-all active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="bg-accent-green text-on-primary font-label-sm text-label-sm px-6 py-2.5 rounded-lg hover:-translate-y-0.5 shadow-sm hover:shadow transition-all active:scale-95">Commit Recipe</button>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border-2 border-surface-container-highest object-cover" data-alt="A small, circular profile picture of a young home chef smiling warmly in a bright kitchen, soft morning light, minimalist UI avatar style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpRkqfL_iVkJEXmChbmY0syKK9AgAO_ezK15OUq1ejex4TGH7t1KIQM4gZFLZxemjVBThTXwdFJczulwIygGNBbkY5RXsmgJ97XsHpOBte9GICVg7pYKvSwwE3RtGbP29WxpIdR-htQhNB4Rn6yATOyTx5gZjRP0HWQcjHQA024N361T5xisXsh4ZUWZmhnlGR2tl515_ODH9IftjAgsE0DtN_fmCAHf674lPu1x-2usOr31b1EOlU"/>
+</div>
+</div>
+</nav>
+<!-- Mobile Nav Header -->
+<header class="md:hidden flex justify-between items-center p-margin-mobile sticky top-0 bg-surface/90 backdrop-blur-md z-40 shadow-sm border-b-0">
+<a class="font-handwritten-note text-handwritten-note text-primary font-bold tracking-tight" href="#">KitchenBoard</a>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant p-2">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="bg-accent-green text-on-primary font-label-sm text-label-sm px-4 py-2 rounded-lg">Commit</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col gap-12">
+<!-- Recipe Header & Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
+<!-- Floating Decorative Paperclip -->
+<div class="absolute -top-6 -left-4 z-20 hidden md:block text-outline-variant transform -rotate-12">
+<svg fill="none" height="80" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 48" width="40">
+<path d="M14 6v28a6 6 0 0 1-12 0V10a4 4 0 0 1 8 0v22a2 2 0 1 1-4 0V14"></path>
+</svg>
+</div>
+<!-- Hero Image Card -->
+<div class="col-span-1 lg:col-span-7 relative bg-surface-container p-3 rounded-xl shadow-sticky tossed-slight z-10 transition-transform duration-300 hover:rotate-0">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-4 bg-yellow-200/50 rounded-sm shadow-sm opacity-80 rotate-2"></div> <!-- Tape -->
+<div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden group">
+<img alt="Lemon Herb Salmon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A highly detailed, professional food photography shot of a perfectly seared Lemon Herb Salmon fillet resting on a bed of roasted asparagus. Golden hour morning light cascades across the flaky, moist fish, highlighting fresh dill, lemon wheels, and a buttery glaze. The setting is a cozy, tactile rustic kitchen counter with a soft focus background. A modern, minimalist aesthetic with warm, inviting tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYl64LFFJVtXAjDN_a-sFA6Yfl6Q3KOzttcM63qjOLj0dbWniIeAAk_rX1fv4VH2PSXtmMEW4-1mQLKB5uIMAwC2ZviEf_s6g0hsAfVtwPfRHnBHSgTVuqBzztqWqPcGLKeJ4JPLMtfGSRd9woiSk4Z73n-JYfkJOMnx_-bhApINmDJcCjfhQbgJke_w-KYr-LjDFzoL3_ws0gMz8vFXDZ5iBAddWYCFBWcf0ineTq-tnLLIgh0Aur"/>
+<!-- Glassmorphic Author Tag -->
+<div class="absolute bottom-0 left-0 right-0 h-24 bg-white/20 backdrop-blur-md bg-gradient-to-t from-black/40 to-transparent p-4 flex items-end justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full shadow-magnet border border-red-500 z-10"></div> <!-- Magnet -->
+<img alt="Author" class="w-10 h-10 rounded-full border-2 border-white/50 object-cover" data-alt="A small circular avatar of a female home cook with glasses, smiling in a softly lit kitchen environment, cozy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9V7x8TMhdoqLmDQsLgwSzkhg9zB7gag8M1BtcEvy9lGCxrykswJ_IOetGdAbWOAXims90AmhPsS-AzrG03BEYx4hpCE5I1KPLhAFUcx8I3Qdx7QRwyA95mjqlmjiTm2PttXV7CmvhVePOQq2oATkgmEIaI_YJe4UeGuyo4B3LYurwdt_rWGE9NU_EspUqBupUOVC_zJdk4J6vPSbKYr4d0Wqk-wbrTBnvdLQPJ8C2UB4bQTivwrpV"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-white drop-shadow-md">Crafted by</p>
+<p class="font-headline-md text-headline-md text-white drop-shadow-md">Sarah Jenkins</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Meta Info Notebook -->
+<div class="col-span-1 lg:col-span-5 bg-[#fffdf5] rounded-lg shadow-sticky p-6 md:p-8 tossed-right notebook-lines relative h-full min-h-[400px] border border-outline-variant/30 flex flex-col">
+<div class="absolute -top-2 right-8 w-8 h-8 bg-blue-400 rounded-full shadow-magnet flex items-center justify-center border border-blue-500">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="mb-8 mt-2">
+<h1 class="font-handwritten-note text-display-lg-mobile md:text-display-lg text-on-surface mb-2 leading-tight">Lemon Herb Salmon</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">A bright, morning-fresh take on a weeknight classic. Ready in under 20 minutes.</p>
+</div>
+<div class="grid grid-cols-2 gap-6 mb-8 flex-grow">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">timer</span> Prep Time
+                        </span>
+<span class="font-headline-md text-headline-md text-on-surface">10 min</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">skillet</span> Cook Time
+                        </span>
+<span class="font-headline-md text-headline-md text-on-surface">12 min</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">group</span> Servings
+                        </span>
+<span class="font-headline-md text-headline-md text-on-surface">2</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">bar_chart</span> Difficulty
+                        </span>
+<span class="font-headline-md text-headline-md text-on-surface">Easy</span>
+</div>
+</div>
+<div class="mt-auto pt-4 flex gap-4">
+<button class="flex-grow bg-accent-green text-white font-label-sm text-label-sm py-3 rounded-lg hover:-translate-y-0.5 shadow-sm hover:shadow transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fork_right</span> Fork Recipe
+                    </button>
+<button class="p-3 bg-surface-container-high rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors active:scale-95 border border-outline-variant/50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bookmark</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Ingredients & Instructions -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-4">
+<!-- Ingredients List -->
+<div class="col-span-1 lg:col-span-4 bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/40">
+<h3 class="font-handwritten-note text-handwritten-note text-primary mb-6 border-b border-outline-variant/30 pb-2">What you'll need</h3>
+<ul class="space-y-4 font-body-lg text-body-lg text-on-surface">
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>2 (6oz) Salmon fillets</span>
+</li>
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>1 tbsp Olive oil</span>
+</li>
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>2 cloves Garlic, minced</span>
+</li>
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>1 Lemon, juiced &amp; zested</span>
+</li>
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>1 tbsp Fresh dill, chopped</span>
+</li>
+<li class="flex items-center gap-3">
+<input class="w-5 h-5 rounded border-outline-variant text-accent-green focus:ring-accent-green bg-surface-container transition-colors cursor-pointer" type="checkbox"/>
+<span>Salt &amp; pepper to taste</span>
+</li>
+</ul>
+</div>
+<!-- Instructions -->
+<div class="col-span-1 lg:col-span-8 bg-surface-container-lowest rounded-xl p-6 md:p-8 shadow-sm border border-outline-variant/40 relative">
+<!-- Decorative coffee stain -->
+<div class="absolute top-10 right-10 w-24 h-24 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, transparent 50%, #4A403A 60%, transparent 70%); border-radius: 50%;"></div>
+<h3 class="font-handwritten-note text-handwritten-note text-primary mb-6 border-b border-outline-variant/30 pb-2">The Process</h3>
+<div class="space-y-8 font-body-md text-body-md text-on-surface">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary-container text-primary font-bold rounded-full flex items-center justify-center border border-outline-variant/50">1</div>
+<div>
+<p class="font-headline-md text-body-lg font-semibold mb-1">Prep the fish</p>
+<p class="text-on-surface-variant leading-relaxed">Pat the salmon fillets dry with a paper towel. Season generously with salt and pepper on both sides. This ensures a good crust when searing.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary-container text-primary font-bold rounded-full flex items-center justify-center border border-outline-variant/50">2</div>
+<div>
+<p class="font-headline-md text-body-lg font-semibold mb-1">Sear to perfection</p>
+<p class="text-on-surface-variant leading-relaxed">Heat olive oil in a skillet over medium-high heat. Once shimmering, add the salmon skin-side up. Cook undisturbed for 4-5 minutes until a golden crust forms.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary-container text-primary font-bold rounded-full flex items-center justify-center border border-outline-variant/50">3</div>
+<div>
+<p class="font-headline-md text-body-lg font-semibold mb-1">The flavor bomb</p>
+<p class="text-on-surface-variant leading-relaxed">Flip the salmon. Add minced garlic, lemon juice, and zest to the pan. Baste the salmon with the juices for another 3-4 minutes until cooked through.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 bg-primary-container text-primary font-bold rounded-full flex items-center justify-center border border-outline-variant/50">4</div>
+<div>
+<p class="font-headline-md text-body-lg font-semibold mb-1">Garnish &amp; Serve</p>
+<p class="text-on-surface-variant leading-relaxed">Remove from heat. Sprinkle with fresh chopped dill. Serve immediately over roasted asparagus or a light quinoa salad.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Branch Tree / Variations -->
+<section class="mt-8 pt-8 border-t border-outline-variant/30">
+<div class="mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">account_tree</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Community Variations</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Variation Card 1 -->
+<div class="bg-surface-container rounded-xl p-5 border border-outline-variant/20 hover:border-primary/50 transition-colors group cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-red-100 text-red-800 font-label-sm text-xs px-2 py-1 rounded-md">Spicy</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_outward</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-semibold text-on-surface mb-2">Chili Lime Salmon</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4">Swaps lemon for lime and adds crushed red pepper flakes and a touch of honey.</p>
+<div class="flex items-center gap-2 mt-auto">
+<img alt="User" class="w-6 h-6 rounded-full" data-alt="Small avatar of a male user, dark hair, smiling, warm light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9ahoANUHnIuuk262EU4bVu-l8g1mM0iTZDiIwtZ2yRpgltNpZD7G9mLifcEj1bXoIGQezBNLlv-jDTLm3bPCFO_glnessDbul0vBTd0a0yuPkgJkf-gqV3xLYET6Bbp45z42k9MyE2fhOocuApJDOplMtnhouC8SnQmfk5iF_ZGnoWZKWIrmh2fnUH7M4C0Q_5I4_HrVEUVOT_Dv6XyTsRA-7QPRxrlfrvCJ-hJIEVb4H12yBrR-_"/>
+<span class="font-label-sm text-xs text-on-surface-variant">by Mark T.</span>
+</div>
+</div>
+<!-- Variation Card 2 -->
+<div class="bg-surface-container rounded-xl p-5 border border-outline-variant/20 hover:border-primary/50 transition-colors group cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-green-100 text-green-800 font-label-sm text-xs px-2 py-1 rounded-md">Healthy</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_outward</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-semibold text-on-surface mb-2">Air-Fried Lemon Herb</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4">Uses 80% less oil. Cooked in the air fryer for a crispier skin in less time.</p>
+<div class="flex items-center gap-2 mt-auto">
+<img alt="User" class="w-6 h-6 rounded-full" data-alt="Small avatar of a female user, athletic, bright sunny background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArT-nOuGwfxSU8gc3_MmJiBHLVAGFHl2hT0h3F_lRsaUy4UED9FJpF4IcjTvTmqeiE5_WxvQoBQag2Wy5P6nczQzDZXszP39Dy7hM8revnOFDlVn67XzhIcyjcj1AYCOXfofAFCqZam5dTUxa9Vz73oT2B3fk2EV-beGKPK9evbIWobgvYnqPh-cqZFLSf-fT_MVvp2d4FdNkGAj96J6Q8FmxnjFzwaxN8yzG7ySMplM5rgIogkTad"/>
+<span class="font-label-sm text-xs text-on-surface-variant">by FitChef_Anna</span>
+</div>
+</div>
+<!-- Variation Card 3 -->
+<div class="bg-surface-container rounded-xl p-5 border border-outline-variant/20 hover:border-primary/50 transition-colors group cursor-pointer shadow-sm hover:shadow-md">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-yellow-100 text-yellow-800 font-label-sm text-xs px-2 py-1 rounded-md">Rich</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-sm">arrow_outward</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-semibold text-on-surface mb-2">Garlic Butter Bath</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-4">Replaces olive oil with brown butter and adds capers for a savory punch.</p>
+<div class="flex items-center gap-2 mt-auto">
+<img alt="User" class="w-6 h-6 rounded-full" data-alt="Small avatar of a chef in uniform, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtXMq-Y1XJttvqleSnkkDI6Dstc8KUjQFKCZiwrr8MEypubL-X8ag2OtI0zy9Zi7IwHeddL12e6CB9EPPVX9bFfjtQEMphmOKJHZoapzRqx13cR2ACvQvzGFRSJk686oULLZheciKqyFuovKv_f27_G27OEGPrvvWxia6IYnNEDZTCBwPLpTUQUEVRtNC3Hx5qCskjib3PSVV0CFQC_SFMEJEag5oEOAQwAWzdVw6wpycyWCy7sPVy"/>
+<span class="font-label-sm text-xs text-on-surface-variant">by ChefDave</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface text-on-surface-variant dark:text-surface-variant font-label-sm text-label-sm w-full mt-auto border-t border-outline-variant dark:border-outline flat">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-gutter w-full max-w-container-max mx-auto gap-4">
+<p class="opacity-80 hover:opacity-100 transition-opacity">© 2024 KitchenBoard - Crafted with morning optimism.</p>
+<div class="flex items-center gap-6">
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">About</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Contact</a>
+<a class="opacity-80 hover:opacity-100 transition-opacity" href="#">Kitchen Rules</a>
+</div>
+<p class="font-handwritten-note text-handwritten-note opacity-80">KitchenBoard</p>
+</div>
+</footer>
+</body></html>

@@ -143,7 +143,7 @@ export function Library() {
               Take this note off the fridge?
             </h2>
             <p className="mb-6 text-sm text-on-surface-variant">
-              "{confirmDelete.title}" and all of its branches will be removed.
+              "{confirmDelete.title}" and all of its versions will be removed.
               This can't be undone.
             </p>
             <div className="flex justify-end gap-3">

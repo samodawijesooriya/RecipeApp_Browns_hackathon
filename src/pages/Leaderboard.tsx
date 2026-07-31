@@ -3,11 +3,11 @@ import { useRecipes } from "../context/RecipeContext";
 import { Icon } from "../components/Icon";
 import type { User } from "../types/recipe";
 
-type Ranking = "Highest Reputation" | "Most Forked" | "Most Approved Recipes";
+type Ranking = "Highest Reputation" | "Most Remixed" | "Most Approved Recipes";
 
 const RANKINGS: Ranking[] = [
   "Highest Reputation",
-  "Most Forked",
+  "Most Remixed",
   "Most Approved Recipes",
 ];
 
@@ -32,7 +32,7 @@ export function Leaderboard() {
     const all = Object.values(users);
     const score = (u: User) => {
       const s = stats.get(u.id) ?? { forks: 0, approved: 0 };
-      if (ranking === "Most Forked") return s.forks;
+      if (ranking === "Most Remixed") return s.forks;
       if (ranking === "Most Approved Recipes") return s.approved;
       return u.reputation;
     };
@@ -41,7 +41,7 @@ export function Leaderboard() {
 
   const statLabel = (u: User): string => {
     const s = stats.get(u.id) ?? { forks: 0, approved: 0 };
-    if (ranking === "Most Forked") return `${s.forks} forks`;
+    if (ranking === "Most Remixed") return `${s.forks} versions`;
     if (ranking === "Most Approved Recipes")
       return `${s.approved} approved recipe${s.approved === 1 ? "" : "s"}`;
     return `${u.reputation.toLocaleString()} rep`;

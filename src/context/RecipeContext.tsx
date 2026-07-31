@@ -14,7 +14,6 @@ import type {
   User,
 } from "../types/recipe";
 import {
-  CURRENT_USER_ID,
   mockNotifications,
   mockRecipes,
   mockUsers,
@@ -23,25 +22,30 @@ import {
 export type VoteDirection = 1 | -1;
 
 interface PersistedState {
-  version: 3;
+  version: 4;
   recipes: Recipe[];
-  savedIds: string[];
-  /** Current user's vote direction per recipe (UI highlight only). Counts live on recipe.votes. */
-  votes: Record<string, VoteDirection>;
+  /** Per-user saved recipe ids */
+  savedByUser: Record<string, string[]>;
+  /** Per-user vote direction per recipe */
+  votesByUser: Record<string, Record<string, VoteDirection>>;
   notifications: AppNotification[];
 }
 
 interface RecipeContextValue {
   recipes: Recipe[];
   users: Record<string, User>;
-  currentUser: User;
+  /** null when browsing as a guest */
+  currentUser: User | null;
+  isLoggedIn: boolean;
+  login: (identifier: string) => User;
+  logout: () => void;
   notifications: AppNotification[];
   savedIds: string[];
   votes: Record<string, VoteDirection>;
   getRecipe: (id: string) => Recipe | undefined;
   getBranches: (id: string) => Recipe[];
   voteScore: (recipe: Recipe) => number;
-  addRecipe: (draft: RecipeDraft) => Recipe;
+  addRecipe: (draft: RecipeDraft) => Recipe | null;
   deleteRecipe: (id: string) => void;
   approveRecipe: (id: string) => void;
   rejectRecipe: (id: string) => void;
@@ -54,7 +58,17 @@ interface RecipeContextValue {
 
 const RecipeContext = createContext<RecipeContextValue | null>(null);
 
-const STORAGE_KEY = "kitchenboard-state-v3";
+const STATE_KEY = "kitchenboard-state-v4";
+const AUTH_KEY = "kitchenboard-auth-v1";
+const LEGACY_STATE_KEY = "kitchenboard-state-v3";
+
+const DEFAULT_SAVES = [
+  "r-salmon",
+  "r-kottu",
+  "r-pancakes",
+  "r-kiribath",
+  "r-sourdough",
+];
 
 function isRecipe(value: unknown): value is Recipe {
   if (!value || typeof value !== "object") return false;
@@ -75,85 +89,195 @@ function isNotification(value: unknown): value is AppNotification {
   return typeof n.id === "string" && typeof n.message === "string";
 }
 
-function loadPersisted(): PersistedState | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed: unknown = JSON.parse(raw);
-    if (!parsed || typeof parsed !== "object") return null;
-    const data = parsed as Record<string, unknown>;
-    if (data.version !== 3) return null;
-    if (!Array.isArray(data.recipes) || !data.recipes.every(isRecipe)) return null;
-    if (!Array.isArray(data.savedIds) || !data.savedIds.every((id) => typeof id === "string"))
-      return null;
-    if (!data.votes || typeof data.votes !== "object") return null;
-    if (!Array.isArray(data.notifications) || !data.notifications.every(isNotification))
-      return null;
-    return data as unknown as PersistedState;
-  } catch {
-    return null;
-  }
+function isVoteMap(value: unknown): value is Record<string, VoteDirection> {
+  if (!value || typeof value !== "object") return false;
+  return Object.values(value).every((v) => v === 1 || v === -1);
 }
 
 const usersById: Record<string, User> = Object.fromEntries(
   mockUsers.map((u) => [u.id, u]),
 );
 
+function loadAuthUserId(): string | null {
+  try {
+    const raw = localStorage.getItem(AUTH_KEY);
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    const id = (parsed as Record<string, unknown>).authUserId;
+    if (id === null) return null;
+    if (typeof id === "string" && usersById[id]) return id;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function loadPersisted(): PersistedState | null {
+  try {
+    const raw = localStorage.getItem(STATE_KEY);
+    if (raw) {
+      const parsed: unknown = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") return null;
+      const data = parsed as Record<string, unknown>;
+      if (data.version !== 4) return null;
+      if (!Array.isArray(data.recipes) || !data.recipes.every(isRecipe)) return null;
+      if (!data.savedByUser || typeof data.savedByUser !== "object") return null;
+      if (!data.votesByUser || typeof data.votesByUser !== "object") return null;
+      if (
+        !Array.isArray(data.notifications) ||
+        !data.notifications.every(isNotification)
+      )
+        return null;
+      return data as unknown as PersistedState;
+    }
+
+    // Migrate v3 → v4 (global saves/votes → Alex's shelf)
+    const legacyRaw = localStorage.getItem(LEGACY_STATE_KEY);
+    if (!legacyRaw) return null;
+    const legacy: unknown = JSON.parse(legacyRaw);
+    if (!legacy || typeof legacy !== "object") return null;
+    const data = legacy as Record<string, unknown>;
+    if (data.version !== 3) return null;
+    if (!Array.isArray(data.recipes) || !data.recipes.every(isRecipe)) return null;
+    if (
+      !Array.isArray(data.savedIds) ||
+      !data.savedIds.every((id) => typeof id === "string")
+    )
+      return null;
+    if (!data.votes || typeof data.votes !== "object") return null;
+    if (
+      !Array.isArray(data.notifications) ||
+      !data.notifications.every(isNotification)
+    )
+      return null;
+
+    return {
+      version: 4,
+      recipes: data.recipes as Recipe[],
+      savedByUser: { "u-you": data.savedIds as string[] },
+      votesByUser: {
+        "u-you": isVoteMap(data.votes) ? data.votes : {},
+      },
+      notifications: data.notifications as AppNotification[],
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Resolve a mock user by id, handle, or name. Unknown → Alex (u-you). */
+export function resolveMockUser(identifier: string): User {
+  const raw = identifier.trim();
+  if (!raw) return usersById["u-you"];
+
+  const byId = usersById[raw];
+  if (byId) return byId;
+
+  const normalized = raw.toLowerCase().replace(/^@/, "");
+  const byHandle = mockUsers.find(
+    (u) => u.handle.toLowerCase().replace(/^@/, "") === normalized,
+  );
+  if (byHandle) return byHandle;
+
+  const byName = mockUsers.find(
+    (u) => u.name.toLowerCase() === raw.toLowerCase(),
+  );
+  if (byName) return byName;
+
+  return usersById["u-you"];
+}
+
 export function RecipeProvider({ children }: { children: ReactNode }) {
   const persisted = useMemo(() => loadPersisted(), []);
+  const initialAuthId = useMemo(() => loadAuthUserId(), []);
 
+  const [authUserId, setAuthUserId] = useState<string | null>(initialAuthId);
   const [recipes, setRecipes] = useState<Recipe[]>(
     persisted?.recipes ?? mockRecipes,
   );
-  const [savedIds, setSavedIds] = useState<string[]>(
-    persisted?.savedIds ?? ["r-salmon", "r-kottu", "r-pancakes", "r-kiribath", "r-sourdough"],
+  const [savedByUser, setSavedByUser] = useState<Record<string, string[]>>(
+    persisted?.savedByUser ?? { "u-you": DEFAULT_SAVES },
   );
-  const [votes, setVotes] = useState<Record<string, VoteDirection>>(
-    persisted?.votes ?? {},
-  );
+  const [votesByUser, setVotesByUser] = useState<
+    Record<string, Record<string, VoteDirection>>
+  >(persisted?.votesByUser ?? {});
   const [notifications, setNotifications] = useState<AppNotification[]>(
     persisted?.notifications ?? mockNotifications,
   );
 
   useEffect(() => {
     const state: PersistedState = {
-      version: 3,
+      version: 4,
       recipes,
-      savedIds,
-      votes,
+      savedByUser,
+      votesByUser,
       notifications,
     };
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(STATE_KEY, JSON.stringify(state));
     } catch {
-      // storage full or unavailable - persistence is best-effort
+      // storage full or unavailable — persistence is best-effort
     }
-  }, [recipes, savedIds, votes, notifications]);
+  }, [recipes, savedByUser, votesByUser, notifications]);
 
-  const currentUser = usersById[CURRENT_USER_ID];
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        AUTH_KEY,
+        JSON.stringify({ authUserId }),
+      );
+    } catch {
+      // best-effort
+    }
+  }, [authUserId]);
+
+  const currentUser = authUserId ? (usersById[authUserId] ?? null) : null;
+  const isLoggedIn = currentUser !== null;
+
+  const savedIds = currentUser
+    ? (savedByUser[currentUser.id] ?? [])
+    : [];
+  const votes = currentUser ? (votesByUser[currentUser.id] ?? {}) : {};
+
+  const login = (identifier: string): User => {
+    const user = resolveMockUser(identifier);
+    setAuthUserId(user.id);
+    setSavedByUser((prev) =>
+      prev[user.id] !== undefined ? prev : { ...prev, [user.id]: [] },
+    );
+    setVotesByUser((prev) =>
+      prev[user.id] !== undefined ? prev : { ...prev, [user.id]: {} },
+    );
+    return user;
+  };
+
+  const logout = () => setAuthUserId(null);
 
   const getRecipe = (id: string) => recipes.find((r) => r.id === id);
 
   const getBranches = (id: string) =>
     recipes.filter((r) => r.parentRecipeId === id);
 
-  /** Live score — always stored on the recipe after vote(). */
   const voteScore = (recipe: Recipe) => recipe.votes;
 
-  const pushNotification = (n: Omit<AppNotification, "id" | "time" | "read">) => {
+  const pushNotification = (
+    n: Omit<AppNotification, "id" | "time" | "read">,
+  ) => {
     setNotifications((prev) => [
       { ...n, id: `n-${Date.now()}`, time: "just now", read: false },
       ...prev,
     ]);
   };
 
-  const addRecipe = (draft: RecipeDraft): Recipe => {
+  const addRecipe = (draft: RecipeDraft): Recipe | null => {
+    if (!currentUser) return null;
     const nowIso = new Date().toISOString();
     const recipe: Recipe = {
       id: `r-${Date.now()}`,
       title: draft.title,
       description: draft.description,
-      authorId: CURRENT_USER_ID,
+      authorId: currentUser.id,
       createdAt: nowIso,
       updatedAt: nowIso,
       cookingTime: draft.cookingTime,
@@ -192,18 +316,38 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   };
 
   const deleteRecipe = (id: string) => {
+    if (!currentUser) return;
+    const recipe = getRecipe(id);
+    if (!recipe) return;
+    if (
+      recipe.authorId !== currentUser.id &&
+      currentUser.role !== "admin"
+    )
+      return;
+
     setRecipes((prev) =>
       prev.filter((r) => r.id !== id && r.parentRecipeId !== id),
     );
-    setSavedIds((prev) => prev.filter((sid) => sid !== id));
-    setVotes((prev) => {
-      const next = { ...prev };
-      delete next[id];
+    setSavedByUser((prev) => {
+      const next: Record<string, string[]> = {};
+      for (const [uid, ids] of Object.entries(prev)) {
+        next[uid] = ids.filter((sid) => sid !== id);
+      }
+      return next;
+    });
+    setVotesByUser((prev) => {
+      const next: Record<string, Record<string, VoteDirection>> = {};
+      for (const [uid, map] of Object.entries(prev)) {
+        const copy = { ...map };
+        delete copy[id];
+        next[uid] = copy;
+      }
       return next;
     });
   };
 
   const approveRecipe = (id: string) => {
+    if (!currentUser || currentUser.role !== "admin") return;
     const recipe = getRecipe(id);
     setRecipes((prev) =>
       prev.map((r) =>
@@ -227,6 +371,7 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   };
 
   const rejectRecipe = (id: string) => {
+    if (!currentUser || currentUser.role !== "admin") return;
     const recipe = getRecipe(id);
     setRecipes((prev) =>
       prev.map((r) => (r.id === id ? { ...r, status: "rejected" } : r)),
@@ -241,23 +386,23 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   };
 
   const vote = (recipeId: string, direction: VoteDirection) => {
-    setVotes((prev) => {
-      const current = prev[recipeId];
+    if (!currentUser) return;
+    const uid = currentUser.id;
+
+    setVotesByUser((prev) => {
+      const userVotes = { ...(prev[uid] ?? {}) };
+      const current = userVotes[recipeId];
       let delta = 0;
-      const next = { ...prev };
 
       if (current === direction) {
-        // Undo the same vote
         delta = -current;
-        delete next[recipeId];
+        delete userVotes[recipeId];
       } else if (current) {
-        // Switch upvote ↔ downvote
         delta = direction - current;
-        next[recipeId] = direction;
+        userVotes[recipeId] = direction;
       } else {
-        // Fresh vote
         delta = direction;
-        next[recipeId] = direction;
+        userVotes[recipeId] = direction;
       }
 
       setRecipes((recipesPrev) =>
@@ -266,13 +411,17 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
         ),
       );
 
-      return next;
+      return { ...prev, [uid]: userVotes };
     });
   };
 
   const toggleSave = (recipeId: string) => {
-    setSavedIds((prev) => {
-      const currentlySaved = prev.includes(recipeId);
+    if (!currentUser) return;
+    const uid = currentUser.id;
+
+    setSavedByUser((prev) => {
+      const userSaves = prev[uid] ?? [];
+      const currentlySaved = userSaves.includes(recipeId);
 
       setRecipes((recipesPrev) =>
         recipesPrev.map((r) =>
@@ -287,23 +436,34 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
         ),
       );
 
-      return currentlySaved
-        ? prev.filter((id) => id !== recipeId)
-        : [...prev, recipeId];
+      return {
+        ...prev,
+        [uid]: currentlySaved
+          ? userSaves.filter((id) => id !== recipeId)
+          : [...userSaves, recipeId],
+      };
     });
   };
 
-  const isSaved = (recipeId: string) => savedIds.includes(recipeId);
+  const isSaved = (recipeId: string) =>
+    Boolean(currentUser && savedIds.includes(recipeId));
 
-  const markAllNotificationsRead = () =>
+  const markAllNotificationsRead = () => {
+    if (!currentUser) return;
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = currentUser
+    ? notifications.filter((n) => !n.read).length
+    : 0;
 
   const value: RecipeContextValue = {
     recipes,
     users: usersById,
     currentUser,
+    isLoggedIn,
+    login,
+    logout,
     notifications,
     savedIds,
     votes,

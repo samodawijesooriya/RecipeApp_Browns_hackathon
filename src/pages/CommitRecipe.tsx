@@ -35,6 +35,7 @@ export function CommitRecipe() {
 
   const handleCommit = (draft: RecipeDraft) => {
     const recipe = addRecipe(draft);
+    if (!recipe) return;
     setCommitted(recipe);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

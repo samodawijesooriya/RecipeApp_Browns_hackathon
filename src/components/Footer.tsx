@@ -10,7 +10,11 @@ export function Footer() {
           <span className="cursor-pointer opacity-80 transition-opacity hover:opacity-100">Privacy</span>
           <span className="cursor-pointer opacity-80 transition-opacity hover:opacity-100">Kitchen Rules</span>
         </div>
-        <p className="font-hand text-lg opacity-80">KitchenBoard</p>
+        <img
+          src="/kitchenboard-logo.png"
+          alt="KitchenBoard"
+          className="h-10 w-auto object-contain opacity-90"
+        />
       </div>
     </footer>
   );

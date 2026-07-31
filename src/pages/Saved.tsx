@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecipes } from "../context/RecipeContext";
 import { Icon } from "../components/Icon";
 import { noteDecor } from "../utils/noteStyle";
@@ -14,8 +14,37 @@ const SPINE_COLORS = [
 
 /** Saved recipes as cookbooks standing on wooden shelves. */
 export function Saved() {
-  const { recipes, savedIds, toggleSave } = useRecipes();
+  const { recipes, savedIds, toggleSave, isLoggedIn } = useRecipes();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  if (!isLoggedIn) {
+    return (
+      <main className="mx-auto max-w-lg px-4 py-20 text-center md:px-12">
+        <div className="pastel-yellow sticky-note relative mx-auto rounded-xl p-8">
+          <div className="magnet mag-red" />
+          <Icon
+            name="auto_stories"
+            className="text-5xl text-on-surface-variant/50"
+          />
+          <h1 className="mt-4 font-hand text-3xl font-semibold text-on-surface">
+            Your cookbook shelf is locked
+          </h1>
+          <p className="mt-2 text-sm text-on-surface-variant">
+            Log in to save recipes and pull them down whenever you&apos;re
+            hungry.
+          </p>
+          <Link
+            to="/login"
+            state={{ from: location }}
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent-green px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-transform hover:-translate-y-0.5"
+          >
+            <Icon name="door_open" /> Log in to unlock
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
   const saved = recipes.filter((r) => savedIds.includes(r.id));
 
@@ -40,7 +69,7 @@ export function Saved() {
         <div className="py-20 text-center">
           <Icon name="auto_stories" className="text-6xl text-on-surface-variant/40" />
           <p className="mt-4 font-hand text-2xl text-on-surface-variant">
-            The shelf is empty — save a recipe and it'll appear here.
+            The shelf is empty — save a recipe and it&apos;ll appear here.
           </p>
         </div>
       ) : (
@@ -64,7 +93,6 @@ export function Saved() {
                       }}
                       className="group relative h-48 w-16 cursor-pointer rounded-t-sm rounded-b-[2px] shadow-md transition-all duration-300 hover:-translate-y-3 hover:shadow-xl md:h-56 md:w-20"
                     >
-                      {/* Book cloth texture bands */}
                       <div className="absolute inset-x-0 top-3 h-1.5 bg-white/25" />
                       <div className="absolute inset-x-0 bottom-3 h-1.5 bg-white/25" />
                       <span
@@ -73,7 +101,6 @@ export function Saved() {
                       >
                         {recipe.title}
                       </span>
-                      {/* Unsave on hover */}
                       <span
                         role="button"
                         tabIndex={0}

@@ -59,6 +59,7 @@ export const CATEGORIES = [
   "Snacks",
 ] as const;
 
+/** Default mock account for unknown handles — Alex is also the only admin. */
 export const CURRENT_USER_ID = "u-you";
 
 export const mockUsers: User[] = [

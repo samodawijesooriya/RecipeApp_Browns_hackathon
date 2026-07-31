@@ -4,6 +4,13 @@ import { Icon } from "../components/Icon";
 export function NotFound() {
   return (
     <main className="mx-auto max-w-lg px-4 py-24 text-center">
+      <Link to="/" aria-label="KitchenBoard" className="mb-8 inline-block">
+        <img
+          src="/kitchenboard-logo.png"
+          alt="KitchenBoard"
+          className="mx-auto h-16 w-auto object-contain"
+        />
+      </Link>
       <div className="pastel-yellow sticky-note mx-auto max-w-sm rotate-[-2deg] rounded-xl p-8">
         <div className="magnet mag-red" />
         <Icon name="search_off" className="mt-2 text-5xl text-on-surface-variant/50" />

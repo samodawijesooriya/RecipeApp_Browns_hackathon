@@ -54,7 +54,7 @@ export function Notifications() {
           const needsReview =
             n.type === "pending" &&
             recipe?.status === "pending" &&
-            currentUser.role === "admin";
+            currentUser?.role === "admin";
 
           return (
             <li

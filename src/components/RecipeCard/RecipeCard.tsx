@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Recipe, RecipeBadge } from "../../types/recipe";
 import { useRecipes } from "../../context/RecipeContext";
 import { noteDecor } from "../../utils/noteStyle";
@@ -22,11 +22,22 @@ interface RecipeCardProps {
 /** Reddit-style community card, dressed as a paper note. */
 export function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
   const navigate = useNavigate();
-  const { users, isSaved, toggleSave } = useRecipes();
+  const location = useLocation();
+  const { users, isSaved, toggleSave, isLoggedIn } = useRecipes();
   const author = users[recipe.authorId];
   const decor = noteDecor(recipe.id);
   const badge = recipe.badge ? BADGE_META[recipe.badge] : undefined;
   const saved = isSaved(recipe.id);
+
+  const requireLogin = (path?: string) => {
+    if (!isLoggedIn) {
+      navigate("/login", {
+        state: { from: path ? { pathname: path } : location },
+      });
+      return false;
+    }
+    return true;
+  };
 
   return (
     <article
@@ -93,7 +104,11 @@ export function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
             type="button"
             aria-label="Make it my way"
             title="Make it my way"
-            onClick={() => navigate(`/commit?fork=${recipe.id}`)}
+            onClick={() => {
+              const path = `/commit?fork=${recipe.id}`;
+              if (!requireLogin(path)) return;
+              navigate(path);
+            }}
             className="rounded-full p-1.5 text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary"
           >
             <Icon name="fork_right" className="text-[18px]" />
@@ -101,7 +116,10 @@ export function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
           <button
             type="button"
             aria-label={saved ? "Unsave recipe" : "Save recipe"}
-            onClick={() => toggleSave(recipe.id)}
+            onClick={() => {
+              if (!requireLogin()) return;
+              toggleSave(recipe.id);
+            }}
             className={`rounded-full p-1.5 transition-colors ${
               saved
                 ? "text-accent-green-dark"

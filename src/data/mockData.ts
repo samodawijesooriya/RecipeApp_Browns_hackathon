@@ -25,27 +25,27 @@ export const IMAGES = {
   avatarMark: `${IMG}AB6AXuA9ahoANUHnIuuk262EU4bVu-l8g1mM0iTZDiIwtZ2yRpgltNpZD7G9mLifcEj1bXoIGQezBNLlv-jDTLm3bPCFO_glnessDbul0vBTd0a0yuPkgJkf-gqV3xLYET6Bbp45z42k9MyE2fhOocuApJDOplMtnhouC8SnQmfk5iF_ZGnoWZKWIrmh2fnUH7M4C0Q_5I4_HrVEUVOT_Dv6XyTsRA-7QPRxrlfrvCJ-hJIEVb4H12yBrR-_`,
   avatarAnna: `${IMG}AB6AXuArT-nOuGwfxSU8gc3_MmJiBHLVAGFHl2hT0h3F_lRsaUy4UED9FJpF4IcjTvTmqeiE5_WxvQoBQag2Wy5P6nczQzDZXszP39Dy7hM8revnOFDlVn67XzhIcyjcj1AYCOXfofAFCqZam5dTUxa9Vz73oT2B3fk2EV-beGKPK9evbIWobgvYnqPh-cqZFLSf-fT_MVvp2d4FdNkGAj96J6Q8FmxnjFzwaxN8yzG7ySMplM5rgIogkTad`,
   avatarDave: `${IMG}AB6AXuDtXMq-Y1XJttvqleSnkkDI6Dstc8KUjQFKCZiwrr8MEypubL-X8ag2OtI0zy9Zi7IwHeddL12e6CB9EPPVX9bFfjtQEMphmOKJHZoapzRqx13cR2ACvQvzGFRSJk686oULLZheciKqyFuovKv_f27_G27OEGPrvvWxia6IYnNEDZTCBwPLpTUQUEVRtNC3Hx5qCskjib3PSVV0CFQC_SFMEJEag5oEOAQwAWzdVw6wpycyWCy7sPVy`,
-  // Sri Lankan dishes (Unsplash)
+  // Sri Lankan dishes (verified Unsplash / Pexels / Wikimedia)
   chickenCurry:
-    "https://images.unsplash.com/photo-1565557623262-b51c2513a41f?w=800&q=80",
+    "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80",
   kottu:
-    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80",
+    "https://images.pexels.com/photos/35071814/pexels-photo-35071814.jpeg?auto=compress&cs=tinysrgb&w=800",
   hoppers:
-    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Egg_hoppers_sri_Lanka.jpg/960px-Egg_hoppers_sri_Lanka.jpg",
   kiribath:
-    "https://images.unsplash.com/photo-1516684669134-de6f7c973a2f?w=800&q=80",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Kiribath.jpg/960px-Kiribath.jpg",
   polSambol:
-    "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Pol_Sambol.jpg/960px-Pol_Sambol.jpg",
   dhalCurry:
     "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80",
   ambulThiyal:
-    "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=800&q=80",
+    "https://images.unsplash.com/photo-1756741987051-a6a38f28838b?w=800&q=80",
   watalappan:
-    "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Watalappan-Sri_Lanka.jpg/960px-Watalappan-Sri_Lanka.jpg",
   stringHoppers:
-    "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Sri_Lankan_breakfast_by_String_hoppers.jpg/960px-Sri_Lankan_breakfast_by_String_hoppers.jpg",
   avatarNimali:
-    "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&q=80",
+    "https://images.unsplash.com/photo-1774437792342-20a785ba0694?w=400&q=80",
 } as const;
 
 export const CATEGORIES = [

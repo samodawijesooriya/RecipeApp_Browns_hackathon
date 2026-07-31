@@ -22,7 +22,7 @@ import {
 export type VoteDirection = 1 | -1;
 
 interface PersistedState {
-  version: 4;
+  version: 5;
   recipes: Recipe[];
   /** Per-user saved recipe ids */
   savedByUser: Record<string, string[]>;
@@ -58,7 +58,7 @@ interface RecipeContextValue {
 
 const RecipeContext = createContext<RecipeContextValue | null>(null);
 
-const STATE_KEY = "kitchenboard-state-v4";
+const STATE_KEY = "kitchenboard-state-v5";
 const AUTH_KEY = "kitchenboard-auth-v1";
 const LEGACY_STATE_KEY = "kitchenboard-state-v3";
 
@@ -120,7 +120,7 @@ function loadPersisted(): PersistedState | null {
       const parsed: unknown = JSON.parse(raw);
       if (!parsed || typeof parsed !== "object") return null;
       const data = parsed as Record<string, unknown>;
-      if (data.version !== 4) return null;
+      if (data.version !== 5) return null;
       if (!Array.isArray(data.recipes) || !data.recipes.every(isRecipe)) return null;
       if (!data.savedByUser || typeof data.savedByUser !== "object") return null;
       if (!data.votesByUser || typeof data.votesByUser !== "object") return null;
@@ -132,7 +132,7 @@ function loadPersisted(): PersistedState | null {
       return data as unknown as PersistedState;
     }
 
-    // Migrate v3 → v4 (global saves/votes → Alex's shelf)
+    // Migrate v3 → v5 (global saves/votes → Alex's shelf; refresh recipes for new image URLs)
     const legacyRaw = localStorage.getItem(LEGACY_STATE_KEY);
     if (!legacyRaw) return null;
     const legacy: unknown = JSON.parse(legacyRaw);
@@ -153,8 +153,8 @@ function loadPersisted(): PersistedState | null {
       return null;
 
     return {
-      version: 4,
-      recipes: data.recipes as Recipe[],
+      version: 5,
+      recipes: mockRecipes,
       savedByUser: { "u-you": data.savedIds as string[] },
       votesByUser: {
         "u-you": isVoteMap(data.votes) ? data.votes : {},
@@ -208,7 +208,7 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const state: PersistedState = {
-      version: 4,
+      version: 5,
       recipes,
       savedByUser,
       votesByUser,

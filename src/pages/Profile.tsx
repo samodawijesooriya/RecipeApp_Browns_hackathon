@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useRecipes } from "../context/RecipeContext";
 import { Icon } from "../components/Icon";
 import { StickyNote } from "../components/StickyNote";
+import type { Recipe } from "../types/recipe";
 
 const WEEKS = 26;
 const LEVEL_COLORS = [
@@ -11,14 +12,40 @@ const LEVEL_COLORS = [
   "bg-green-600",
 ];
 
-/** Deterministic pseudo-random contribution level for a given cell. */
-function contributionLevel(week: number, day: number): number {
-  const seed = Math.sin(week * 13.37 + day * 7.77) * 10000;
-  const value = seed - Math.floor(seed);
-  if (value > 0.85) return 3;
-  if (value > 0.65) return 2;
-  if (value > 0.4) return 1;
+function toDayKey(iso: string): string {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function levelFromCount(count: number): number {
+  if (count >= 3) return 3;
+  if (count === 2) return 2;
+  if (count === 1) return 1;
   return 0;
+}
+
+/** Build a day→count map from the user's commits (created + approvals). */
+function buildContributionMap(
+  recipes: Recipe[],
+): Map<string, { count: number; titles: string[] }> {
+  const map = new Map<string, { count: number; titles: string[] }>();
+  const bump = (iso: string, title: string) => {
+    const key = toDayKey(iso);
+    const entry = map.get(key) ?? { count: 0, titles: [] };
+    entry.count += 1;
+    if (!entry.titles.includes(title)) entry.titles.push(title);
+    map.set(key, entry);
+  };
+  for (const recipe of recipes) {
+    bump(recipe.createdAt, recipe.title);
+    if (
+      recipe.status === "approved" &&
+      toDayKey(recipe.updatedAt) !== toDayKey(recipe.createdAt)
+    ) {
+      bump(recipe.updatedAt, recipe.title);
+    }
+  }
+  return map;
 }
 
 export function Profile() {
@@ -31,9 +58,23 @@ export function Profile() {
   const approvedCount = myRecipes.filter((r) => r.status === "approved").length;
   const branchCount = myRecipes.filter((r) => r.parentRecipeId).length;
 
+  const contributions = useMemo(
+    () => buildContributionMap(myRecipes),
+    [myRecipes],
+  );
+
+  /** Grid ends this week; columns are weeks, rows are Sun→Sat. */
+  const gridStart = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dayOfWeek = today.getDay();
+    const start = new Date(today);
+    start.setDate(today.getDate() - dayOfWeek - (WEEKS - 1) * 7);
+    return start;
+  }, []);
+
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10 md:px-12">
-      {/* Profile card */}
       <section className="notebook-lines relative mb-10 rounded-xl border border-outline-variant/30 bg-paper p-6 shadow-lg md:p-8">
         <div className="absolute -top-2 left-10 flex h-8 w-8 items-center justify-center rounded-full border border-red-500 bg-red-400 shadow-md">
           <Icon name="favorite" fill className="text-sm text-white" />
@@ -97,7 +138,6 @@ export function Profile() {
         </div>
       </section>
 
-      {/* Contribution graph */}
       <section className="mb-10 rounded-xl border border-outline-variant/40 bg-white p-6 shadow-sm">
         <h2 className="mb-1 flex items-center gap-2 text-xl font-semibold text-on-surface">
           <Icon name="calendar_month" className="text-primary" />
@@ -112,14 +152,24 @@ export function Profile() {
             {Array.from({ length: WEEKS }, (_, week) => (
               <div key={week} className="flex flex-col gap-1">
                 {Array.from({ length: 7 }, (_, day) => {
-                  const level = contributionLevel(week, day);
+                  const cell = new Date(gridStart);
+                  cell.setDate(gridStart.getDate() + week * 7 + day);
+                  const key = `${cell.getFullYear()}-${cell.getMonth()}-${cell.getDate()}`;
+                  const entry = contributions.get(key);
+                  const count = entry?.count ?? 0;
+                  const level = levelFromCount(count);
+                  const dateLabel = cell.toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  });
                   return (
                     <div
                       key={day}
                       title={
-                        level > 0
-                          ? `${level} contribution${level === 1 ? "" : "s"}`
-                          : "No contributions"
+                        count > 0
+                          ? `${dateLabel}: ${count} — ${entry?.titles.join(", ")}`
+                          : `${dateLabel}: No contributions`
                       }
                       className={`h-3.5 w-3.5 rounded-[3px] ${LEVEL_COLORS[level]}`}
                     />
@@ -138,7 +188,6 @@ export function Profile() {
         </div>
       </section>
 
-      {/* My recipes */}
       <section>
         <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-on-surface">
           <Icon name="sticky_note_2" className="text-primary" />

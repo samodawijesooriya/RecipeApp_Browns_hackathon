@@ -7,7 +7,7 @@ const FILTERS = ["All", "Trending Today", ...CATEGORIES] as const;
 
 /** Reddit-style community feed of paper recipe cards. */
 export function Community() {
-  const { recipes, voteScore } = useRecipes();
+  const { recipes } = useRecipes();
   const [filter, setFilter] = useState<string>("All");
 
   const feed = useMemo(() => {
@@ -15,7 +15,7 @@ export function Community() {
     if (filter === "Trending Today") {
       return [...visible].sort(
         (a, b) =>
-          voteScore(b) + b.forkCount * 50 - (voteScore(a) + a.forkCount * 50),
+          b.votes + b.forkCount * 50 - (a.votes + a.forkCount * 50),
       );
     }
     if (filter !== "All") {
@@ -25,7 +25,6 @@ export function Community() {
       (a, b) =>
         new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipes, filter]);
 
   return (

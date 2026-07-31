@@ -23,8 +23,10 @@ import {
 export type VoteDirection = 1 | -1;
 
 interface PersistedState {
+  version: 3;
   recipes: Recipe[];
   savedIds: string[];
+  /** Current user's vote direction per recipe (UI highlight only). Counts live on recipe.votes. */
   votes: Record<string, VoteDirection>;
   notifications: AppNotification[];
 }
@@ -52,12 +54,42 @@ interface RecipeContextValue {
 
 const RecipeContext = createContext<RecipeContextValue | null>(null);
 
-const STORAGE_KEY = "kitchenboard-state-v1";
+const STORAGE_KEY = "kitchenboard-state-v3";
+
+function isRecipe(value: unknown): value is Recipe {
+  if (!value || typeof value !== "object") return false;
+  const r = value as Record<string, unknown>;
+  return (
+    typeof r.id === "string" &&
+    typeof r.title === "string" &&
+    typeof r.authorId === "string" &&
+    typeof r.votes === "number" &&
+    Array.isArray(r.ingredients) &&
+    Array.isArray(r.instructions)
+  );
+}
+
+function isNotification(value: unknown): value is AppNotification {
+  if (!value || typeof value !== "object") return false;
+  const n = value as Record<string, unknown>;
+  return typeof n.id === "string" && typeof n.message === "string";
+}
 
 function loadPersisted(): PersistedState | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as PersistedState) : null;
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return null;
+    const data = parsed as Record<string, unknown>;
+    if (data.version !== 3) return null;
+    if (!Array.isArray(data.recipes) || !data.recipes.every(isRecipe)) return null;
+    if (!Array.isArray(data.savedIds) || !data.savedIds.every((id) => typeof id === "string"))
+      return null;
+    if (!data.votes || typeof data.votes !== "object") return null;
+    if (!Array.isArray(data.notifications) || !data.notifications.every(isNotification))
+      return null;
+    return data as unknown as PersistedState;
   } catch {
     return null;
   }
@@ -74,7 +106,7 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
     persisted?.recipes ?? mockRecipes,
   );
   const [savedIds, setSavedIds] = useState<string[]>(
-    persisted?.savedIds ?? ["r-salmon", "r-pancakes", "r-sourdough"],
+    persisted?.savedIds ?? ["r-salmon", "r-kottu", "r-pancakes", "r-kiribath", "r-sourdough"],
   );
   const [votes, setVotes] = useState<Record<string, VoteDirection>>(
     persisted?.votes ?? {},
@@ -84,7 +116,13 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    const state: PersistedState = { recipes, savedIds, votes, notifications };
+    const state: PersistedState = {
+      version: 3,
+      recipes,
+      savedIds,
+      votes,
+      notifications,
+    };
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch {
@@ -99,7 +137,8 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   const getBranches = (id: string) =>
     recipes.filter((r) => r.parentRecipeId === id);
 
-  const voteScore = (recipe: Recipe) => recipe.votes + (votes[recipe.id] ?? 0);
+  /** Live score — always stored on the recipe after vote(). */
+  const voteScore = (recipe: Recipe) => recipe.votes;
 
   const pushNotification = (n: Omit<AppNotification, "id" | "time" | "read">) => {
     setNotifications((prev) => [
@@ -135,7 +174,6 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
       changeNote: draft.changeNote,
     };
     setRecipes((prev) => {
-      // Forking bumps the parent's fork count
       const next = draft.parentRecipeId
         ? prev.map((r) =>
             r.id === draft.parentRecipeId
@@ -158,6 +196,11 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
       prev.filter((r) => r.id !== id && r.parentRecipeId !== id),
     );
     setSavedIds((prev) => prev.filter((sid) => sid !== id));
+    setVotes((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
   };
 
   const approveRecipe = (id: string) => {
@@ -200,34 +243,54 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
   const vote = (recipeId: string, direction: VoteDirection) => {
     setVotes((prev) => {
       const current = prev[recipeId];
+      let delta = 0;
       const next = { ...prev };
+
       if (current === direction) {
-        delete next[recipeId]; // clicking again removes the vote
+        // Undo the same vote
+        delta = -current;
+        delete next[recipeId];
+      } else if (current) {
+        // Switch upvote ↔ downvote
+        delta = direction - current;
+        next[recipeId] = direction;
       } else {
+        // Fresh vote
+        delta = direction;
         next[recipeId] = direction;
       }
+
+      setRecipes((recipesPrev) =>
+        recipesPrev.map((r) =>
+          r.id === recipeId ? { ...r, votes: r.votes + delta } : r,
+        ),
+      );
+
       return next;
     });
   };
 
   const toggleSave = (recipeId: string) => {
-    setSavedIds((prev) =>
-      prev.includes(recipeId)
+    setSavedIds((prev) => {
+      const currentlySaved = prev.includes(recipeId);
+
+      setRecipes((recipesPrev) =>
+        recipesPrev.map((r) =>
+          r.id === recipeId
+            ? {
+                ...r,
+                saveCount: currentlySaved
+                  ? Math.max(0, r.saveCount - 1)
+                  : r.saveCount + 1,
+              }
+            : r,
+        ),
+      );
+
+      return currentlySaved
         ? prev.filter((id) => id !== recipeId)
-        : [...prev, recipeId],
-    );
-    setRecipes((prev) =>
-      prev.map((r) =>
-        r.id === recipeId
-          ? {
-              ...r,
-              saveCount: savedIds.includes(recipeId)
-                ? Math.max(0, r.saveCount - 1)
-                : r.saveCount + 1,
-            }
-          : r,
-      ),
-    );
+        : [...prev, recipeId];
+    });
   };
 
   const isSaved = (recipeId: string) => savedIds.includes(recipeId);

@@ -12,6 +12,7 @@ import { Saved } from "./pages/Saved";
 import { Leaderboard } from "./pages/Leaderboard";
 import { Notifications } from "./pages/Notifications";
 import { Profile } from "./pages/Profile";
+import { NotFound } from "./pages/NotFound";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -39,6 +40,7 @@ function App() {
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           <Footer />

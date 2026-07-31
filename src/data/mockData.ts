@@ -25,6 +25,27 @@ export const IMAGES = {
   avatarMark: `${IMG}AB6AXuA9ahoANUHnIuuk262EU4bVu-l8g1mM0iTZDiIwtZ2yRpgltNpZD7G9mLifcEj1bXoIGQezBNLlv-jDTLm3bPCFO_glnessDbul0vBTd0a0yuPkgJkf-gqV3xLYET6Bbp45z42k9MyE2fhOocuApJDOplMtnhouC8SnQmfk5iF_ZGnoWZKWIrmh2fnUH7M4C0Q_5I4_HrVEUVOT_Dv6XyTsRA-7QPRxrlfrvCJ-hJIEVb4H12yBrR-_`,
   avatarAnna: `${IMG}AB6AXuArT-nOuGwfxSU8gc3_MmJiBHLVAGFHl2hT0h3F_lRsaUy4UED9FJpF4IcjTvTmqeiE5_WxvQoBQag2Wy5P6nczQzDZXszP39Dy7hM8revnOFDlVn67XzhIcyjcj1AYCOXfofAFCqZam5dTUxa9Vz73oT2B3fk2EV-beGKPK9evbIWobgvYnqPh-cqZFLSf-fT_MVvp2d4FdNkGAj96J6Q8FmxnjFzwaxN8yzG7ySMplM5rgIogkTad`,
   avatarDave: `${IMG}AB6AXuDtXMq-Y1XJttvqleSnkkDI6Dstc8KUjQFKCZiwrr8MEypubL-X8ag2OtI0zy9Zi7IwHeddL12e6CB9EPPVX9bFfjtQEMphmOKJHZoapzRqx13cR2ACvQvzGFRSJk686oULLZheciKqyFuovKv_f27_G27OEGPrvvWxia6IYnNEDZTCBwPLpTUQUEVRtNC3Hx5qCskjib3PSVV0CFQC_SFMEJEag5oEOAQwAWzdVw6wpycyWCy7sPVy`,
+  // Sri Lankan dishes (Unsplash)
+  chickenCurry:
+    "https://images.unsplash.com/photo-1565557623262-b51c2513a41f?w=800&q=80",
+  kottu:
+    "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80",
+  hoppers:
+    "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
+  kiribath:
+    "https://images.unsplash.com/photo-1516684669134-de6f7c973a2f?w=800&q=80",
+  polSambol:
+    "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80",
+  dhalCurry:
+    "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80",
+  ambulThiyal:
+    "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=800&q=80",
+  watalappan:
+    "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80",
+  stringHoppers:
+    "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80",
+  avatarNimali:
+    "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&q=80",
 } as const;
 
 export const CATEGORIES = [
@@ -123,6 +144,18 @@ export const mockUsers: User[] = [
     followers: 260,
     following: 145,
   },
+  {
+    id: "u-nimali",
+    name: "Nimali Fernando",
+    handle: "@lanka_kitchen",
+    avatar: IMAGES.avatarNimali,
+    role: "member",
+    reputation: 2310,
+    bio: "Colombo home cook sharing Amma's curry powder secrets, hopper tips, and kottu midnight runs.",
+    badges: ["Community Hero", "Soup Master", "Top Contributor"],
+    followers: 1180,
+    following: 92,
+  },
 ];
 
 const now = new Date();
@@ -176,6 +209,52 @@ export const mockRecipes: Recipe[] = [
     saveCount: 1290,
     status: "approved",
     version: 3,
+    badge: "trending",
+  },
+  {
+    id: "r-hoppers",
+    title: "Egg Hoppers (Appa)",
+    description:
+      "Crispy bowl-shaped rice-flour pancakes with a soft egg nestled in the centre — Colombo breakfast perfection.",
+    authorId: "u-nimali",
+    createdAt: daysAgo(11),
+    updatedAt: daysAgo(3),
+    cookingTime: 45,
+    difficulty: "Medium",
+    servings: 4,
+    ingredients: [
+      "2 cups rice flour",
+      "1 cup coconut milk",
+      "1/2 cup water",
+      "1/2 tsp yeast",
+      "1/2 tsp sugar",
+      "1/2 tsp salt",
+      "4 eggs",
+      "Oil, for the hopper pan",
+    ],
+    instructions: [
+      {
+        title: "Ferment the batter",
+        text: "Mix rice flour, coconut milk, water, yeast, sugar, and salt. Cover and ferment 6–8 hours until bubbly and slightly sour.",
+      },
+      {
+        title: "Swirl the hopper",
+        text: "Heat a hopper pan, lightly oil it, pour a ladle of batter and quickly swirl to coat the sides in a thin lace.",
+      },
+      {
+        title: "Crack the egg",
+        text: "Crack an egg into the centre, cover, and cook until the egg white sets and the edges crisp. Serve with lunu miris or curry.",
+      },
+    ],
+    category: "Breakfast",
+    cuisine: "Sri Lankan",
+    tags: ["hoppers", "eggs", "coconut", "brunch"],
+    image: IMAGES.hoppers,
+    votes: 3680,
+    forkCount: 41,
+    saveCount: 1520,
+    status: "approved",
+    version: 2,
     badge: "trending",
   },
   {
@@ -267,6 +346,53 @@ export const mockRecipes: Recipe[] = [
     badge: "most-forked",
   },
   {
+    id: "r-kottu",
+    title: "Chicken Kottu Roti",
+    description:
+      "Street-side clatter of blades on the board — chopped godamba roti, leftover chicken curry, eggs, and veg wok-tossed into comfort.",
+    authorId: "u-nimali",
+    createdAt: daysAgo(7),
+    updatedAt: daysAgo(1),
+    cookingTime: 35,
+    difficulty: "Medium",
+    servings: 3,
+    ingredients: [
+      "4 godamba roti or paratha, chopped",
+      "2 cups leftover Sri Lankan chicken curry",
+      "3 eggs",
+      "1 leek, sliced",
+      "1 onion, thinly sliced",
+      "1 carrot, matchsticks",
+      "2 tbsp soy sauce",
+      "2 tbsp oil",
+      "1 tsp chilli powder (optional)",
+    ],
+    instructions: [
+      {
+        title: "Scramble & veg",
+        text: "Heat oil in a wok, scramble the eggs with garlic, then toss in leek, onion, and carrot for 2 minutes.",
+      },
+      {
+        title: "Chop it together",
+        text: "Add chopped roti and chicken curry. Keep chopping and tossing with two spatulas until everything is mixed and steaming hot.",
+      },
+      {
+        title: "Season hard",
+        text: "Splash in soy sauce and chilli powder, cook 3–4 more minutes, and serve immediately — preferably at midnight.",
+      },
+    ],
+    category: "Dinner",
+    cuisine: "Sri Lankan",
+    tags: ["street-food", "spicy", "roti", "chicken"],
+    image: IMAGES.kottu,
+    votes: 6720,
+    forkCount: 58,
+    saveCount: 2100,
+    status: "approved",
+    version: 1,
+    badge: "most-forked",
+  },
+  {
     id: "r-carbonara",
     title: "Classic Carbonara",
     description:
@@ -308,6 +434,57 @@ export const mockRecipes: Recipe[] = [
     status: "approved",
     version: 1,
     badge: "recently-approved",
+  },
+  {
+    id: "r-kukul-mas",
+    title: "Kukul Mas Kari (Chicken Curry)",
+    description:
+      "Everyday Sri Lankan chicken curry — roasted curry powder, curry leaves, pandan, and coconut milk. The base of a thousand rice-and-curry plates.",
+    authorId: "u-nimali",
+    createdAt: daysAgo(20),
+    updatedAt: daysAgo(4),
+    cookingTime: 55,
+    difficulty: "Medium",
+    servings: 4,
+    ingredients: [
+      "1 kg chicken thighs, bone-in pieces",
+      "2 tbsp roasted Sri Lankan curry powder",
+      "1 tsp turmeric",
+      "1 onion, sliced",
+      "4 garlic cloves, minced",
+      "1 tbsp ginger, minced",
+      "10 curry leaves",
+      "1 pandan leaf, knotted",
+      "1 cinnamon stick",
+      "2 tomatoes, chopped",
+      "1 cup thick coconut milk",
+      "2 tbsp oil",
+      "Salt to taste",
+    ],
+    instructions: [
+      {
+        title: "Marinate",
+        text: "Rub chicken with 1 tbsp curry powder, turmeric, salt, garlic, and ginger. Rest at least 30 minutes.",
+      },
+      {
+        title: "Build the temper",
+        text: "Sauté onion, curry leaves, pandan, and cinnamon in oil until fragrant. Add remaining curry powder and toast 30 seconds.",
+      },
+      {
+        title: "Simmer in coconut",
+        text: "Add tomatoes and chicken, coat well, then pour in coconut milk and a splash of water. Simmer covered 25–30 minutes until tender and the gravy is deep red-gold.",
+      },
+    ],
+    category: "Dinner",
+    cuisine: "Sri Lankan",
+    tags: ["curry", "chicken", "coconut", "rice-and-curry"],
+    image: IMAGES.chickenCurry,
+    votes: 4890,
+    forkCount: 47,
+    saveCount: 1870,
+    status: "approved",
+    version: 2,
+    badge: "editors-pick",
   },
   {
     id: "r-pancakes",
@@ -355,6 +532,48 @@ export const mockRecipes: Recipe[] = [
     badge: "editors-pick",
   },
   {
+    id: "r-kiribath",
+    title: "Kiribath with Lunu Miris",
+    description:
+      "Creamy milk rice pressed into diamonds, served with fiery chilli-onion relish — the New Year plate that tastes like home.",
+    authorId: "u-nimali",
+    createdAt: daysAgo(16),
+    updatedAt: daysAgo(5),
+    cookingTime: 40,
+    difficulty: "Easy",
+    servings: 6,
+    ingredients: [
+      "2 cups short-grain white rice",
+      "2 cups thick coconut milk",
+      "2 cups water",
+      "1 tsp salt",
+      "For lunu miris: 8 red chillies, 1 red onion, 1 tsp salt, 1 lime",
+    ],
+    instructions: [
+      {
+        title: "Cook the rice",
+        text: "Rinse rice and cook with water until almost done. Stir in coconut milk and salt; simmer until thick and porridge-like.",
+      },
+      {
+        title: "Set the kiribath",
+        text: "Spread onto a plate, press flat, and cool slightly. Cut into diamonds or squares.",
+      },
+      {
+        title: "Pound the lunu miris",
+        text: "Pound chillies, onion, and salt into a coarse relish. Finish with lime juice. Serve alongside the milk rice.",
+      },
+    ],
+    category: "Breakfast",
+    cuisine: "Sri Lankan",
+    tags: ["kiribath", "coconut", "traditional", "new-year"],
+    image: IMAGES.kiribath,
+    votes: 2750,
+    forkCount: 19,
+    saveCount: 980,
+    status: "approved",
+    version: 1,
+  },
+  {
     id: "r-shakshuka",
     title: "Morning Shakshuka",
     description:
@@ -397,6 +616,46 @@ export const mockRecipes: Recipe[] = [
     saveCount: 760,
     status: "approved",
     version: 1,
+  },
+  {
+    id: "r-pol-sambol",
+    title: "Pol Sambol",
+    description:
+      "Fresh grated coconut pounded with chilli, onion, Maldive fish, and lime — the side that makes every rice plate sing.",
+    authorId: "u-mark",
+    createdAt: daysAgo(3),
+    updatedAt: daysAgo(3),
+    cookingTime: 15,
+    difficulty: "Easy",
+    servings: 4,
+    ingredients: [
+      "2 cups freshly grated coconut",
+      "2–3 red chillies (or 1 tsp chilli flakes)",
+      "1 small red onion, finely chopped",
+      "1 tsp Maldive fish flakes (optional)",
+      "1/2 tsp salt",
+      "1 lime, juiced",
+    ],
+    instructions: [
+      {
+        title: "Pound the base",
+        text: "Pound chillies, onion, Maldive fish, and salt into a coarse paste.",
+      },
+      {
+        title: "Fold the coconut",
+        text: "Mix in the grated coconut until evenly pink-orange and fluffy. Finish with lime juice and taste for salt.",
+      },
+    ],
+    category: "Snacks",
+    cuisine: "Sri Lankan",
+    tags: ["sambol", "coconut", "side", "spicy", "vegetarian"],
+    image: IMAGES.polSambol,
+    votes: 3120,
+    forkCount: 22,
+    saveCount: 1140,
+    status: "approved",
+    version: 1,
+    badge: "recently-approved",
   },
   {
     id: "r-goddess",
@@ -443,6 +702,53 @@ export const mockRecipes: Recipe[] = [
     version: 1,
   },
   {
+    id: "r-parippu",
+    title: "Parippu (Red Lentil Curry)",
+    description:
+      "Silky red lentils tempered with mustard seeds, curry leaves, and a final pour of coconut milk — the quiet star of rice and curry.",
+    authorId: "u-comfort",
+    createdAt: daysAgo(14),
+    updatedAt: daysAgo(6),
+    cookingTime: 30,
+    difficulty: "Easy",
+    servings: 4,
+    ingredients: [
+      "1 cup red lentils (masoor dhal)",
+      "1/2 tsp turmeric",
+      "1 onion, sliced",
+      "2 green chillies, slit",
+      "1 tsp mustard seeds",
+      "10 curry leaves",
+      "2 cloves garlic, sliced",
+      "3/4 cup thick coconut milk",
+      "1 tbsp oil",
+      "Salt to taste",
+    ],
+    instructions: [
+      {
+        title: "Boil the dhal",
+        text: "Rinse lentils and simmer with turmeric and water until soft and falling apart, about 15 minutes.",
+      },
+      {
+        title: "Temper",
+        text: "In oil, crackle mustard seeds, then add onion, garlic, green chilli, and curry leaves until golden.",
+      },
+      {
+        title: "Finish creamy",
+        text: "Stir the temper into the dhal, pour in coconut milk, simmer 3 minutes, and season. Serve with rice and pol sambol.",
+      },
+    ],
+    category: "Soup",
+    cuisine: "Sri Lankan",
+    tags: ["dhal", "vegetarian", "coconut", "rice-and-curry"],
+    image: IMAGES.dhalCurry,
+    votes: 4010,
+    forkCount: 31,
+    saveCount: 1450,
+    status: "approved",
+    version: 1,
+  },
+  {
     id: "r-sourdough",
     title: "Rustic Sourdough Loaf",
     description:
@@ -483,6 +789,52 @@ export const mockRecipes: Recipe[] = [
     saveCount: 2210,
     status: "approved",
     version: 4,
+  },
+  {
+    id: "r-ambul-thiyal",
+    title: "Fish Ambul Thiyal",
+    description:
+      "Sour-spicy tuna dry-cured with goraka (smoked tamarind), black pepper, and curry leaves — a southern coastal classic that keeps for days.",
+    authorId: "u-dave",
+    createdAt: daysAgo(10),
+    updatedAt: daysAgo(2),
+    cookingTime: 50,
+    difficulty: "Medium",
+    servings: 4,
+    ingredients: [
+      "500g firm tuna or seer fish, cubed",
+      "4–5 pieces dried goraka (or 2 tbsp tamarind paste)",
+      "1 tbsp black peppercorns, crushed",
+      "1 tsp chilli powder",
+      "1 tsp salt",
+      "1 sprig curry leaves",
+      "4 cloves garlic",
+      "1 small piece ginger",
+      "1/2 cup water",
+    ],
+    instructions: [
+      {
+        title: "Make the paste",
+        text: "Blend or pound goraka, pepper, chilli, salt, garlic, and ginger with a little water into a thick paste.",
+      },
+      {
+        title: "Coat the fish",
+        text: "Toss fish cubes with the paste and curry leaves. Pack into a clay pot or heavy pan.",
+      },
+      {
+        title: "Slow dry-cook",
+        text: "Add the remaining water, bring to a simmer, then cook uncovered on low until the liquid evaporates and the fish is coated in a dark, sticky glaze (30–40 minutes).",
+      },
+    ],
+    category: "Dinner",
+    cuisine: "Sri Lankan",
+    tags: ["seafood", "sour", "spicy", "southern"],
+    image: IMAGES.ambulThiyal,
+    votes: 2210,
+    forkCount: 14,
+    saveCount: 760,
+    status: "approved",
+    version: 1,
   },
   {
     id: "r-grainbowl",
@@ -573,6 +925,50 @@ export const mockRecipes: Recipe[] = [
     version: 2,
   },
   {
+    id: "r-watalappan",
+    title: "Watalappan",
+    description:
+      "Steamed coconut custard sweetened with kitul jaggery and fragrant with cardamom and nutmeg — the festival dessert.",
+    authorId: "u-sarah",
+    createdAt: daysAgo(13),
+    updatedAt: daysAgo(5),
+    cookingTime: 60,
+    difficulty: "Medium",
+    servings: 6,
+    ingredients: [
+      "400ml thick coconut milk",
+      "200g kitul jaggery (or dark palm sugar), grated",
+      "4 eggs",
+      "1/2 tsp ground cardamom",
+      "Pinch of nutmeg",
+      "1 tsp vanilla (optional)",
+      "Cashews, to garnish",
+    ],
+    instructions: [
+      {
+        title: "Melt the jaggery",
+        text: "Warm coconut milk with grated jaggery until dissolved. Cool slightly so it won't scramble the eggs.",
+      },
+      {
+        title: "Whisk & strain",
+        text: "Beat eggs with cardamom and nutmeg, whisk into the coconut mixture, and strain for a silky custard.",
+      },
+      {
+        title: "Steam",
+        text: "Pour into a dish, top with cashews, and steam 35–45 minutes until just set with a gentle wobble. Chill before serving.",
+      },
+    ],
+    category: "Dessert",
+    cuisine: "Sri Lankan",
+    tags: ["dessert", "coconut", "jaggery", "festival"],
+    image: IMAGES.watalappan,
+    votes: 1980,
+    forkCount: 16,
+    saveCount: 890,
+    status: "approved",
+    version: 1,
+  },
+  {
     id: "r-strawberry",
     title: "Strawberry Pecan Salad",
     description:
@@ -612,6 +1008,47 @@ export const mockRecipes: Recipe[] = [
     status: "approved",
     version: 1,
     badge: "recently-approved",
+  },
+  {
+    id: "r-string-hoppers",
+    title: "String Hoppers with Kiri Hodi",
+    description:
+      "Steamed nests of rice-flour noodles (indi appa) ladled with gentle coconut milk gravy — soft, fragrant, and perfect for breakfast.",
+    authorId: "u-nimali",
+    createdAt: daysAgo(8),
+    updatedAt: daysAgo(2),
+    cookingTime: 40,
+    difficulty: "Medium",
+    servings: 4,
+    ingredients: [
+      "2 cups roasted rice flour (string hopper flour)",
+      "Hot water, as needed",
+      "1/2 tsp salt",
+      "For kiri hodi: 1 onion, 2 green chillies, 10 curry leaves, 1/2 tsp turmeric, 2 cups thin coconut milk, 1/2 cup thick coconut milk, salt",
+    ],
+    instructions: [
+      {
+        title: "Make the dough",
+        text: "Mix rice flour and salt with hot water until a soft, pliable dough forms. Rest 10 minutes.",
+      },
+      {
+        title: "Press & steam",
+        text: "Press dough through a string hopper mould onto trays in nest shapes. Steam 5–8 minutes until cooked through.",
+      },
+      {
+        title: "Simmer the kiri hodi",
+        text: "Gently cook onion, chilli, curry leaves, and turmeric in thin coconut milk. Finish with thick coconut milk and salt — do not boil hard. Spoon over the hoppers.",
+      },
+    ],
+    category: "Breakfast",
+    cuisine: "Sri Lankan",
+    tags: ["string-hoppers", "coconut", "breakfast", "steamed"],
+    image: IMAGES.stringHoppers,
+    votes: 3440,
+    forkCount: 28,
+    saveCount: 1210,
+    status: "approved",
+    version: 1,
   },
   // ---- Branches of Lemon Herb Salmon ----
   {
@@ -750,6 +1187,58 @@ export const mockRecipes: Recipe[] = [
     parentRecipeId: "r-salmon",
     changeNote: "Replaced olive oil with brown butter, added capers.",
   },
+  // ---- Branch of Kukul Mas Kari ----
+  {
+    id: "b-kukul-mild",
+    title: "Weeknight Mild Chicken Curry",
+    description:
+      "Same kukul mas base with less chilli and extra coconut milk — kid-friendly without losing the curry-leaf aroma.",
+    authorId: "u-you",
+    createdAt: daysAgo(3),
+    updatedAt: daysAgo(3),
+    cookingTime: 50,
+    difficulty: "Easy",
+    servings: 4,
+    ingredients: [
+      "1 kg chicken thighs, bone-in pieces",
+      "1.5 tbsp roasted Sri Lankan curry powder",
+      "1/2 tsp turmeric",
+      "1 onion, sliced",
+      "3 garlic cloves, minced",
+      "1 tbsp ginger, minced",
+      "10 curry leaves",
+      "1 cinnamon stick",
+      "2 tomatoes, chopped",
+      "1.5 cups thick coconut milk",
+      "2 tbsp oil",
+      "Salt to taste",
+    ],
+    instructions: [
+      {
+        title: "Marinate gently",
+        text: "Coat chicken with curry powder, turmeric, salt, garlic, and ginger. Rest 20 minutes.",
+      },
+      {
+        title: "Soft temper",
+        text: "Sauté onion, curry leaves, and cinnamon until sweet. Add remaining curry powder briefly.",
+      },
+      {
+        title: "Creamy simmer",
+        text: "Add tomatoes and chicken, then coconut milk. Simmer gently 25 minutes until tender — no extra chilli.",
+      },
+    ],
+    category: "Dinner",
+    cuisine: "Sri Lankan",
+    tags: ["curry", "chicken", "mild", "family"],
+    image: IMAGES.chickenCurry,
+    votes: 310,
+    forkCount: 2,
+    saveCount: 95,
+    status: "approved",
+    version: 1,
+    parentRecipeId: "r-kukul-mas",
+    changeNote: "Reduced chilli heat, increased coconut milk for a milder weeknight version.",
+  },
   // ---- A pending commit awaiting review ----
   {
     id: "r-pending-loaf",
@@ -854,8 +1343,9 @@ export const KITCHEN_TIP =
 
 export const SHOPPING_LIST = [
   "Ripe avocados x3",
+  "Roasted Sri Lankan curry powder",
+  "Fresh curry leaves",
+  "Thick coconut milk",
   "Sourdough loaf",
-  "Fresh dill",
-  "Pecorino Romano",
-  "Maple syrup",
+  "Kitul jaggery",
 ];

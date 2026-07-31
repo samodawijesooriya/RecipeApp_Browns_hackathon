@@ -7,7 +7,7 @@ import { Icon } from "../components/Icon";
 
 /** The refrigerator door: today's kitchen at a glance. */
 export function Home() {
-  const { recipes, savedIds, voteScore } = useRecipes();
+  const { recipes, savedIds } = useRecipes();
 
   const approved = useMemo(
     () => recipes.filter((r) => r.status === "approved" && !r.parentRecipeId),
@@ -15,8 +15,7 @@ export function Home() {
   );
 
   const todaysPicks = useMemo(
-    () => [...approved].sort((a, b) => voteScore(b) - voteScore(a)).slice(0, 6),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    () => [...approved].sort((a, b) => b.votes - a.votes).slice(0, 6),
     [approved],
   );
 

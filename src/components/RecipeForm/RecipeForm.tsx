@@ -51,7 +51,7 @@ export function RecipeForm({ initial, isFork = false, onCommit }: RecipeFormProp
     if (cleanSteps.length === 0)
       return setError("Write at least one instruction step.");
     if (isFork && !changeNote.trim())
-      return setError("Tell the community what you changed in this branch.");
+      return setError("Tell the community what you changed in your version.");
 
     setError("");
     onCommit({
@@ -289,11 +289,11 @@ export function RecipeForm({ initial, isFork = false, onCommit }: RecipeFormProp
         className="flex w-full transform items-center justify-center gap-2 rounded-xl bg-accent-green py-4 text-lg font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
       >
         <Icon name="commit" className="text-2xl" />
-        {isFork ? "Commit Branch" : "Commit Recipe"}
+        {isFork ? "Submit for Approval" : "Add Recipe"}
       </button>
       <p className="text-center text-xs text-on-surface-variant">
-        Your {isFork ? "branch" : "recipe"} will be pending review until an
-        admin approves it. The original is never overwritten.
+        Your {isFork ? "version" : "recipe"} will wait for approval before it
+        hits the fridge. The original is never overwritten.
       </p>
     </form>
   );

@@ -8,7 +8,7 @@ import { VoteControls } from "../VoteControls";
 
 const BADGE_META: Record<RecipeBadge, { label: string; icon: string; className: string }> = {
   trending: { label: "TRENDING", icon: "local_fire_department", className: "bg-orange-500 text-white" },
-  "most-forked": { label: "MOST FORKED", icon: "fork_right", className: "bg-primary text-white" },
+  "most-forked": { label: "MOST REMIXED", icon: "fork_right", className: "bg-primary text-white" },
   "editors-pick": { label: "EDITOR'S PICK", icon: "star", className: "bg-amber-500 text-white" },
   "recently-approved": { label: "RECENTLY APPROVED", icon: "verified", className: "bg-accent-green text-white" },
 };
@@ -50,7 +50,7 @@ export function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
 
       {recipe.status === "pending" && (
         <div className="absolute top-4 left-4 z-10 rounded bg-amber-100 px-2 py-1 text-[10px] font-bold tracking-wider text-amber-800 shadow-sm">
-          PENDING REVIEW
+          WAITING FOR APPROVAL
         </div>
       )}
 
@@ -91,8 +91,8 @@ export function RecipeCard({ recipe, onDelete }: RecipeCardProps) {
         <div className="flex items-center gap-1">
           <button
             type="button"
-            aria-label="Fork recipe"
-            title="Fork this recipe"
+            aria-label="Make it my way"
+            title="Make it my way"
             onClick={() => navigate(`/commit?fork=${recipe.id}`)}
             className="rounded-full p-1.5 text-on-surface-variant transition-colors hover:bg-surface-container hover:text-primary"
           >

@@ -144,8 +144,8 @@ export function Profile() {
           Kitchen Contributions
         </h2>
         <p className="mb-4 text-sm text-on-surface-variant">
-          {approvedCount} recipes approved · {branchCount} branches ·{" "}
-          {myRecipes.length} total commits
+          {approvedCount} recipes approved · {branchCount} versions ·{" "}
+          {myRecipes.length} total recipes
         </p>
         <div className="no-scrollbar overflow-x-auto">
           <div className="flex w-max gap-1">
@@ -195,7 +195,7 @@ export function Profile() {
         </h2>
         {myRecipes.length === 0 ? (
           <p className="py-10 text-center font-hand text-2xl text-on-surface-variant">
-            No commits yet — go stick something on the fridge!
+            No recipes yet — go stick something on the fridge!
           </p>
         ) : (
           <div className="masonry">
@@ -206,7 +206,7 @@ export function Profile() {
                   footer={
                     recipe.status === "pending" ? (
                       <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-bold text-amber-800">
-                        Pending Review
+                        Waiting for Approval
                       </span>
                     ) : recipe.status === "rejected" ? (
                       <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-bold text-red-800">

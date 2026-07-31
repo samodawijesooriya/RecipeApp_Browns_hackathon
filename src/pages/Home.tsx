@@ -151,7 +151,7 @@ export function Home() {
                     recipe={recipe}
                     footer={
                       <span className="rounded-full bg-orange-100 px-2 py-1 text-xs font-bold text-orange-800">
-                        {recipe.forkCount} forks · {recipe.saveCount} saves
+                        {recipe.forkCount} versions · {recipe.saveCount} saves
                       </span>
                     }
                   />

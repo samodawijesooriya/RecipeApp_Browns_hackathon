@@ -62,7 +62,7 @@ export function NavBar() {
               onClick={() => navigate("/commit")}
               className="hidden transform rounded-lg bg-accent-green px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:scale-95 sm:block"
             >
-              Commit Recipe
+              Add Recipe
             </button>
             <Link to="/profile" aria-label="Your profile">
               <img
@@ -75,10 +75,10 @@ export function NavBar() {
         </div>
       </header>
 
-      {/* Floating commit button (mobile) */}
+      {/* Floating add-recipe button (mobile) */}
       <button
         type="button"
-        aria-label="Commit a new recipe"
+        aria-label="Add a new recipe"
         onClick={() => navigate("/commit")}
         className="fixed right-5 bottom-20 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-accent-green text-white shadow-xl transition-transform active:scale-90 sm:hidden"
       >

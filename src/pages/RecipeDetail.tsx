@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRecipes } from "../context/RecipeContext";
 import { Icon } from "../components/Icon";
 import { RecipeImage } from "../components/RecipeImage";
@@ -8,11 +8,13 @@ import { VoteControls } from "../components/VoteControls";
 export function RecipeDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     getRecipe,
     getBranches,
     users,
     currentUser,
+    isLoggedIn,
     isSaved,
     toggleSave,
     approveRecipe,
@@ -39,9 +41,20 @@ export function RecipeDetail() {
     );
   }
 
+  const requireLogin = (path?: string) => {
+    if (!isLoggedIn) {
+      navigate("/login", {
+        state: { from: path ? { pathname: path } : location },
+      });
+      return false;
+    }
+    return true;
+  };
+
   const author = users[recipe.authorId];
+  const isAdmin = currentUser?.role === "admin";
   const branches = getBranches(recipe.id).filter(
-    (b) => b.status === "approved" || currentUser.role === "admin",
+    (b) => b.status === "approved" || isAdmin,
   );
   const parent = recipe.parentRecipeId
     ? getRecipe(recipe.parentRecipeId)
@@ -71,7 +84,7 @@ export function RecipeDetail() {
               It's invisible to the community until an admin approves it.
             </p>
           </div>
-          {currentUser.role === "admin" && (
+          {isAdmin && (
             <div className="flex gap-2">
               <button
                 type="button"
@@ -211,7 +224,11 @@ export function RecipeDetail() {
           <div className="mt-4 flex gap-3">
             <button
               type="button"
-              onClick={() => navigate(`/commit?fork=${recipe.id}`)}
+              onClick={() => {
+                const path = `/commit?fork=${recipe.id}`;
+                if (!requireLogin(path)) return;
+                navigate(path);
+              }}
               className="flex flex-grow transform items-center justify-center gap-2 rounded-lg bg-accent-green py-3 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow active:scale-95"
             >
               <Icon name="fork_right" fill /> Make it my way
@@ -219,7 +236,10 @@ export function RecipeDetail() {
             <button
               type="button"
               aria-label={saved ? "Unsave" : "Save"}
-              onClick={() => toggleSave(recipe.id)}
+              onClick={() => {
+                if (!requireLogin()) return;
+                toggleSave(recipe.id);
+              }}
               className={`rounded-lg border border-outline-variant/50 p-3 transition-colors active:scale-95 ${
                 saved
                   ? "bg-accent-green/15 text-accent-green-dark"

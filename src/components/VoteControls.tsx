@@ -1,6 +1,7 @@
 import { Icon } from "./Icon";
 import { useRecipes } from "../context/RecipeContext";
 import type { Recipe } from "../types/recipe";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function formatCount(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, "")}k`;
@@ -8,8 +9,18 @@ function formatCount(n: number): string {
 }
 
 export function VoteControls({ recipe }: { recipe: Recipe }) {
-  const { votes, vote, voteScore } = useRecipes();
+  const { votes, vote, voteScore, isLoggedIn } = useRecipes();
+  const navigate = useNavigate();
+  const location = useLocation();
   const current = votes[recipe.id];
+
+  const requireLogin = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: location } });
+      return false;
+    }
+    return true;
+  };
 
   return (
     <div className="flex items-center gap-1">
@@ -18,6 +29,7 @@ export function VoteControls({ recipe }: { recipe: Recipe }) {
         aria-label="Upvote"
         onClick={(e) => {
           e.stopPropagation();
+          if (!requireLogin()) return;
           vote(recipe.id, 1);
         }}
         className={`flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold transition-colors ${
@@ -34,6 +46,7 @@ export function VoteControls({ recipe }: { recipe: Recipe }) {
         aria-label="Downvote"
         onClick={(e) => {
           e.stopPropagation();
+          if (!requireLogin()) return;
           vote(recipe.id, -1);
         }}
         className={`rounded-full p-1 transition-colors ${

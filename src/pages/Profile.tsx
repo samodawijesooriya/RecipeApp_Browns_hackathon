@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecipes } from "../context/RecipeContext";
 import { Icon } from "../components/Icon";
 import { StickyNote } from "../components/StickyNote";
@@ -49,11 +50,16 @@ function buildContributionMap(
 }
 
 export function Profile() {
-  const { currentUser, recipes } = useRecipes();
+  const { currentUser, recipes, logout, isLoggedIn } = useRecipes();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const myRecipes = useMemo(
-    () => recipes.filter((r) => r.authorId === currentUser.id),
-    [recipes, currentUser.id],
+    () =>
+      currentUser
+        ? recipes.filter((r) => r.authorId === currentUser.id)
+        : [],
+    [recipes, currentUser],
   );
   const approvedCount = myRecipes.filter((r) => r.status === "approved").length;
   const branchCount = myRecipes.filter((r) => r.parentRecipeId).length;
@@ -73,6 +79,31 @@ export function Profile() {
     return start;
   }, []);
 
+  if (!isLoggedIn || !currentUser) {
+    return (
+      <main className="mx-auto max-w-lg px-4 py-20 text-center md:px-12">
+        <div className="pastel-mint sticky-note relative mx-auto rounded-xl p-8">
+          <div className="magnet mag-green" />
+          <Icon name="person" className="text-5xl text-on-surface-variant/50" />
+          <h1 className="mt-4 font-hand text-3xl font-semibold text-on-surface">
+            Log in to see your kitchen profile
+          </h1>
+          <p className="mt-2 text-sm text-on-surface-variant">
+            Your recipes, badges, and contribution heat map live behind the
+            fridge door.
+          </p>
+          <Link
+            to="/login"
+            state={{ from: location }}
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-accent-green px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-transform hover:-translate-y-0.5"
+          >
+            <Icon name="door_open" /> Come into the kitchen
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10 md:px-12">
       <section className="notebook-lines relative mb-10 rounded-xl border border-outline-variant/30 bg-paper p-6 shadow-lg md:p-8">
@@ -80,11 +111,17 @@ export function Profile() {
           <Icon name="favorite" fill className="text-sm text-white" />
         </div>
         <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
-          <img
-            src={currentUser.avatar}
-            alt={currentUser.name}
-            className="h-28 w-28 rotate-[-2deg] rounded-xl border-4 border-white object-cover shadow-md"
-          />
+          {currentUser.avatar ? (
+            <img
+              src={currentUser.avatar}
+              alt={currentUser.name}
+              className="h-28 w-28 rotate-[-2deg] rounded-xl border-4 border-white object-cover shadow-md"
+            />
+          ) : (
+            <div className="flex h-28 w-28 rotate-[-2deg] items-center justify-center rounded-xl border-4 border-white bg-primary font-hand text-4xl text-white shadow-md">
+              {currentUser.name[0]}
+            </div>
+          )}
           <div className="flex-grow text-center md:text-left">
             <h1 className="font-hand text-4xl font-semibold text-on-surface">
               {currentUser.name}
@@ -108,6 +145,17 @@ export function Profile() {
                 </span>
               ))}
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                logout();
+                navigate("/");
+              }}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-outline-variant/60 px-3 py-1.5 text-sm font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+            >
+              <Icon name="logout" className="text-[16px]" />
+              Log out
+            </button>
           </div>
           <div className="grid shrink-0 grid-cols-3 gap-4 text-center md:grid-cols-1">
             <div>

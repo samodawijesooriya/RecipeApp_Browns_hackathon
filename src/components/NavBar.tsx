@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "./Icon";
 import { useRecipes } from "../context/RecipeContext";
 
@@ -11,8 +11,20 @@ const NAV_LINKS = [
 ];
 
 export function NavBar() {
-  const { currentUser, unreadCount } = useRecipes();
+  const { currentUser, unreadCount, isLoggedIn } = useRecipes();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const goLogin = () =>
+    navigate("/login", { state: { from: location } });
+
+  const goProtected = (path: string) => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { from: { pathname: path } } });
+      return;
+    }
+    navigate(path);
+  };
 
   return (
     <>
@@ -21,9 +33,14 @@ export function NavBar() {
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
           <Link
             to="/"
-            className="font-hand text-2xl font-bold tracking-tight text-primary"
+            aria-label="KitchenBoard"
+            className="flex shrink-0 items-center"
           >
-            KitchenBoard
+            <img
+              src="/kitchenboard-logo.png"
+              alt="KitchenBoard"
+              className="h-10 w-auto object-contain md:h-12"
+            />
           </Link>
 
           <nav className="hidden items-center gap-6 md:flex">
@@ -47,11 +64,11 @@ export function NavBar() {
             <button
               type="button"
               aria-label="Notifications"
-              onClick={() => navigate("/notifications")}
+              onClick={() => goProtected("/notifications")}
               className="relative rounded-full p-2 text-on-surface-variant transition-colors hover:bg-surface-variant/40"
             >
               <Icon name="notifications" />
-              {unreadCount > 0 && (
+              {isLoggedIn && unreadCount > 0 && (
                 <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[10px] font-bold text-white">
                   {unreadCount}
                 </span>
@@ -59,18 +76,34 @@ export function NavBar() {
             </button>
             <button
               type="button"
-              onClick={() => navigate("/commit")}
+              onClick={() => goProtected("/commit")}
               className="hidden transform rounded-lg bg-accent-green px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:scale-95 sm:block"
             >
               Add Recipe
             </button>
-            <Link to="/profile" aria-label="Your profile">
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                className="h-9 w-9 rounded-full border border-outline-variant object-cover"
-              />
-            </Link>
+            {isLoggedIn && currentUser ? (
+              <Link to="/profile" aria-label="Your profile">
+                {currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="h-9 w-9 rounded-full border border-outline-variant object-cover"
+                  />
+                ) : (
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-outline-variant bg-primary font-hand text-sm text-white">
+                    {currentUser.name[0]}
+                  </div>
+                )}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={goLogin}
+                className="rounded-lg border border-outline-variant/60 px-3 py-1.5 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+              >
+                Log in
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -79,7 +112,7 @@ export function NavBar() {
       <button
         type="button"
         aria-label="Add a new recipe"
-        onClick={() => navigate("/commit")}
+        onClick={() => goProtected("/commit")}
         className="fixed right-5 bottom-20 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-accent-green text-white shadow-xl transition-transform active:scale-90 sm:hidden"
       >
         <Icon name="add" className="text-3xl" />

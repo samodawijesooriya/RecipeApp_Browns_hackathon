@@ -24,13 +24,13 @@ export function Library() {
   const [confirmDelete, setConfirmDelete] = useState<Recipe | null>(null);
 
   const results = useMemo(() => {
-    // Members see approved recipes plus their own pending commits;
+    // Guests/members see approved recipes; authors see their pending;
     // admins see everything so they can review.
     let pool = recipes.filter(
       (r) =>
         r.status === "approved" ||
-        r.authorId === currentUser.id ||
-        currentUser.role === "admin",
+        (currentUser &&
+          (r.authorId === currentUser.id || currentUser.role === "admin")),
     );
     pool = searchRecipes(pool, users, query);
     if (category !== "All") pool = pool.filter((r) => r.category === category);
@@ -120,8 +120,9 @@ export function Library() {
               <RecipeCard
                 recipe={recipe}
                 onDelete={
-                  recipe.authorId === currentUser.id ||
-                  currentUser.role === "admin"
+                  currentUser &&
+                  (recipe.authorId === currentUser.id ||
+                    currentUser.role === "admin")
                     ? handleDelete
                     : undefined
                 }

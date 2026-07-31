@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import { Bell } from "lucide-react";
 import RecipeCard from "../components/recipeCard";
 import AddRecipeModal from "../components/addRecipeModel";
-import { useRecipes } from "../components/useRecipes";
-import type { CardTheme, NewRecipeInput, PinColor, RecipeCardData, StoredRecipe } from "../components/types";
+import { useRecipes } from "./useRecipes";
+import type { CardTheme, NewRecipeInput, PinColor, RecipeCardData, StoredRecipe } from "./types";
 
 /**
  * KitchenBoard — "Today's Picks" home page

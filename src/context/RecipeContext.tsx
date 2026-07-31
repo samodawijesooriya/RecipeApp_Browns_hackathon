@@ -147,7 +147,7 @@ export function RecipeProvider({ children }: { children: ReactNode }) {
     });
     pushNotification({
       type: "pending",
-      message: `Your ${draft.parentRecipeId ? "branch" : "recipe"} "${draft.title}" was committed and is pending review.`,
+      message: `Your ${draft.parentRecipeId ? "variation" : "recipe"} "${draft.title}" was submitted and is pending review.`,
       recipeId: recipe.id,
     });
     return recipe;

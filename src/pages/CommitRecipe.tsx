@@ -5,7 +5,7 @@ import { RecipeForm } from "../components/RecipeForm/RecipeForm";
 import { Icon } from "../components/Icon";
 import type { Recipe, RecipeDraft } from "../types/recipe";
 
-/** The recipe journal: commit a new recipe or a branch of an existing one. */
+/** The recipe journal: add a new recipe or a variation of an existing one. */
 export function CommitRecipe() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export function CommitRecipe() {
           <div className="magnet mag-green" />
           <Icon name="check_circle" fill className="mt-2 text-6xl text-accent-green-dark" />
           <h1 className="mt-4 font-hand text-3xl font-semibold text-on-surface">
-            {isFork ? "Branch committed!" : "Recipe committed!"}
+            {isFork ? "Variation submitted!" : "Recipe submitted!"}
           </h1>
           <p className="mt-3 text-on-surface-variant">
             "{committed.title}" is now <strong>pending review</strong>. It will
@@ -77,15 +77,15 @@ export function CommitRecipe() {
       <header className="mb-8">
         <p className="mb-1 flex items-center gap-2 font-hand text-lg text-on-surface-variant">
           <Icon name="edit_note" className="text-2xl" />
-          {isFork ? "Opening a new branch in the journal..." : "Opening the recipe journal..."}
+          {isFork ? "Opening a new variation in the journal..." : "Opening the recipe journal..."}
         </p>
         <h1 className="text-4xl font-bold text-on-surface md:text-5xl">
-          {isFork ? "Fork Recipe" : "Commit a Recipe"}
+          {isFork ? "Remix Recipe" : "Add a Recipe"}
         </h1>
         {parent && (
           <p className="mt-3 flex items-center gap-2 rounded-lg bg-surface-container px-4 py-3 text-sm text-on-surface-variant">
             <Icon name="account_tree" className="text-primary" />
-            Branching from{" "}
+            Variation of{" "}
             <Link
               to={`/recipe/${parent.id}`}
               className="font-semibold text-primary hover:underline"

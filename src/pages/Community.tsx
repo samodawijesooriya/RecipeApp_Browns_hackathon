@@ -35,7 +35,7 @@ export function Community() {
           Community Kitchen
         </h1>
         <p className="text-lg text-on-surface-variant">
-          See what's cooking right now. Vote, fork, and pin your favorites.
+          See what's cooking right now. Vote, remix, and pin your favorites.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2 md:justify-start">
           {FILTERS.map((f) => (
@@ -57,7 +57,7 @@ export function Community() {
 
       {feed.length === 0 ? (
         <p className="py-20 text-center font-hand text-2xl text-on-surface-variant">
-          Nothing simmering in this category yet — be the first to commit one!
+          Nothing simmering in this category yet — be the first to add one!
         </p>
       ) : (
         <div className="masonry">

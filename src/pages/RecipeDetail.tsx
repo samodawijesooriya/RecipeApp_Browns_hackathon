@@ -64,7 +64,7 @@ export function RecipeDetail() {
           <Icon name="pending_actions" className="text-3xl text-amber-600" />
           <div className="flex-grow">
             <p className="font-semibold text-amber-900">
-              This {recipe.parentRecipeId ? "branch" : "recipe"} is pending
+              This {recipe.parentRecipeId ? "variation" : "recipe"} is pending
               review.
             </p>
             <p className="text-sm text-amber-800">
@@ -100,7 +100,7 @@ export function RecipeDetail() {
         <div className="flex items-center gap-2 rounded-lg bg-surface-container px-4 py-3 text-sm text-on-surface-variant">
           <Icon name="account_tree" className="text-primary" />
           <span>
-            Branched from{" "}
+            Variation of{" "}
             <Link
               to={`/recipe/${parent.id}`}
               className="font-semibold text-primary hover:underline"
@@ -198,7 +198,7 @@ export function RecipeDetail() {
 
           <div className="mt-auto flex items-center gap-4 border-t border-outline-variant/30 pt-4 text-sm text-on-surface-variant">
             <span className="flex items-center gap-1">
-              <Icon name="fork_right" className="text-[18px]" /> {recipe.forkCount} forks
+              <Icon name="fork_right" className="text-[18px]" /> {recipe.forkCount} remixes
             </span>
             <span className="flex items-center gap-1">
               <Icon name="bookmark" className="text-[18px]" /> {recipe.saveCount} saves
@@ -214,7 +214,7 @@ export function RecipeDetail() {
               onClick={() => navigate(`/commit?fork=${recipe.id}`)}
               className="flex flex-grow transform items-center justify-center gap-2 rounded-lg bg-accent-green py-3 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow active:scale-95"
             >
-              <Icon name="fork_right" fill /> Fork Recipe
+              <Icon name="fork_right" fill /> Remix Recipe
             </button>
             <button
               type="button"
